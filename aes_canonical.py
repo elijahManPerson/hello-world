@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 from difflib import SequenceMatcher
 
-CANONICAL_VERSION = "aes_canonical_2026-05-17_r1"
+CANONICAL_VERSION = "aes_canonical_2026-05-17_r2"
 
 # ----------------------------------------------------------------------
 # Step 8A. Correction
@@ -106,8 +106,51 @@ def _is_word(tok):
     return bool(tok) and bool(_WORD_RX.search(tok))
 
 
+_UPPER_LOWER_SEAM_RX = re.compile(r'([A-Z]{2,})([a-z])')
+
+
+def _typed_realign(opcodes, raw_tokens, corr_tokens):
+    """Re-examine replace blocks so word<->punct pairings don't cause drift.
+
+    Encodes each token with a 'W' or 'P' type prefix before re-running
+    SequenceMatcher locally, forcing type-consistent pairings.
+    """
+    def _type_prefix(tok):
+        return ("W" if _is_word(tok) else "P") + tok.lower()
+
+    out = []
+    for tag, i1, i2, j1, j2 in opcodes:
+        if tag != "replace":
+            out.append((tag, i1, i2, j1, j2))
+            continue
+        ri = raw_tokens[i1:i2]
+        cj = corr_tokens[j1:j2]
+        # Check for any word<->punct type violation in paired slots
+        m = min(len(ri), len(cj))
+        violation = any(
+            _is_word(ri[k]) != _is_word(cj[k]) for k in range(m)
+        )
+        if not violation:
+            out.append((tag, i1, i2, j1, j2))
+            continue
+        # Re-align this block with type-prefixed tokens
+        sm2 = SequenceMatcher(
+            a=[_type_prefix(t) for t in ri],
+            b=[_type_prefix(t) for t in cj],
+            autojunk=False,
+        )
+        for sub_tag, ai1, ai2, bj1, bj2 in sm2.get_opcodes():
+            out.append((sub_tag, i1 + ai1, i1 + ai2, j1 + bj1, j1 + bj2))
+    return out
+
+
+def _normalise_raw_spacing(text):
+    """Split at uppercase->lowercase seams: 'YAAAYwe' -> 'YAAAY we'."""
+    return _UPPER_LOWER_SEAM_RX.sub(r'\1 \2', text)
+
+
 def build_word_map(raw_text, corr_text):
-    raw_text = str(raw_text or "")
+    raw_text = _normalise_raw_spacing(str(raw_text or ""))
     corr_text = str(corr_text or "")
     raw_tokens = _simple_tokenize(raw_text)
     corr_tokens = _simple_tokenize(corr_text)
@@ -118,7 +161,8 @@ def build_word_map(raw_text, corr_text):
                          b=[t.lower() for t in corr_tokens],
                          autojunk=False)
     rows = []
-    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+    for tag, i1, i2, j1, j2 in _typed_realign(sm.get_opcodes(),
+                                               raw_tokens, corr_tokens):
         if tag == "equal":
             for k in range(i2 - i1):
                 rt, ct = raw_tokens[i1 + k], corr_tokens[j1 + k]
@@ -182,6 +226,65 @@ def build_word_map(raw_text, corr_text):
     return rows
 
 
+def _taxonomy_row(row):
+    """Assign broad_category, error_type, error_subtype to one word-map row.
+
+    Taxonomy (Entry 003):
+      broad_category : word | punctuation | capitalisation
+      error_type     : Spelling | SentencePunctuation | OtherPunctuation
+                       | NounCapitalisation | SentenceStructure | Equal
+      error_subtype  : correct | insertion | deletion | changed
+
+    This function operates on the raw values; sentence-punctuation context
+    (position within sentence) is enriched later by run_step9 once the
+    boundary layer exists.
+    """
+    op = row.get("op", "equal")
+    rt = row.get("raw_token")
+    ct = row.get("corr_token")
+    err = row.get("error_type", "Equal")
+
+    rt_str = str(rt) if rt is not None else ""
+    ct_str = str(ct) if ct is not None else ""
+
+    is_raw_word = _is_word(rt_str)
+    is_corr_word = _is_word(ct_str)
+
+    if op == "equal":
+        # equal_ci=False means SequenceMatcher matched on lowercase but the
+        # actual tokens differ in case — a capitalisation-only change.
+        if not row.get("equal_ci", True) and rt_str and ct_str:
+            return "capitalisation", "NounCapitalisation", "changed"
+        return "word" if is_corr_word else "punctuation", "Equal", "correct"
+
+    if op == "insert":
+        if is_corr_word:
+            return "word", "SentenceStructure", "insertion"
+        return "punctuation", "OtherPunctuation", "insertion"
+
+    if op == "delete":
+        if is_raw_word:
+            return "word", "SentenceStructure", "deletion"
+        return "punctuation", "OtherPunctuation", "deletion"
+
+    # op == "replace"
+    if is_raw_word and is_corr_word:
+        # Capitalisation-only change?
+        if rt_str.lower() == ct_str.lower():
+            return "capitalisation", "NounCapitalisation", "changed"
+        # Spelling: same intended word, different spelling.
+        if err == "Spelling":
+            return "word", "Spelling", "changed"
+        # Otherwise structural change.
+        return "word", "SentenceStructure", "changed"
+
+    if not is_raw_word and not is_corr_word:
+        return "punctuation", "OtherPunctuation", "changed"
+
+    # word <-> punct mismatch (should be rare after _typed_realign).
+    return "word", "SentenceStructure", "changed"
+
+
 def run_mapping_only(df_corr, id_col="ID", raw_col="Raw text",
                      corr_col="Corrected text (8)"):
     need = {raw_col, corr_col}
@@ -210,6 +313,12 @@ def run_mapping_only(df_corr, id_col="ID", raw_col="Raw text",
               "raw_index", "raw_start", "raw_end"]:
         if c in df_map.columns:
             df_map[c] = pd.to_numeric(df_map[c], errors="coerce")
+
+    # Entry 003: marking taxonomy columns.
+    taxonomy = df_map.apply(_taxonomy_row, axis=1, result_type="expand")
+    taxonomy.columns = ["broad_category", "error_type", "error_subtype"]
+    df_map[["broad_category", "error_type", "error_subtype"]] = taxonomy
+
     texts = df.copy()
     return df_map, texts
 
@@ -273,7 +382,7 @@ def assign_corr_sentence_ids(df_map):
         toks = (g["corr_token"] if "corr_token" in g.columns
                 else g["raw_token"]).map(_tok).tolist()
         sids = []
-        sid = 0
+        sid = 1  # 0 is reserved for titles
         pending = False
         for i, raw_tok in enumerate(toks):
             t = raw_tok.strip()
@@ -302,6 +411,60 @@ def assign_corr_sentence_ids(df_map):
 
 OPENING_PUNCT = {'"', "\u201c", "'", "\u00ab", "(", "[", "{"}
 
+# Tunable threshold for TextualArtifact detection (marker calibrates this).
+ARTIFACT_THRESHOLD = 0.45
+
+_FORMULAIC_ENDING_RX = re.compile(
+    r"^(the\s+end|to\s+be\s+continued|fin\.?|the\s+end\.)$", re.I)
+
+
+def _score_artifact(tokens, position):
+    """Score a sentence's tokens for title/ending likelihood.
+
+    position: "first" (potential TITLE) or "last" (potential ENDING).
+    Returns (artifact_type, score) where artifact_type is "TITLE", "ENDING",
+    or "" and score is in [0, 1].
+    """
+    str_toks = [t for t in tokens if isinstance(t, str) and t]
+    words = [t for t in str_toks if _is_word(t)]
+    n_words = len(words)
+    sentence_text = " ".join(str_toks)
+
+    # Formulaic ending is near-decisive on its own.
+    if position == "last" and _FORMULAIC_ENDING_RX.fullmatch(sentence_text.strip()):
+        return "ENDING", 1.0
+
+    score = 0.0
+
+    # Fragment length clue.
+    if n_words == 1:
+        score += 0.35
+    elif n_words <= 4:
+        score += 0.20
+    elif n_words <= 6:
+        score += 0.05
+    else:
+        score -= 0.10
+
+    # ALL CAPS (multi-char words only, to ignore "I").
+    long_words = [w for w in words if len(w) > 1]
+    if long_words and all(w.isupper() for w in long_words):
+        score += 0.30
+
+    # Title Case (every alpha word starts with upper).
+    alpha_words = [w for w in words if w.isalpha()]
+    if alpha_words and all(w[0].isupper() for w in alpha_words):
+        score += 0.15
+
+    # No terminal punctuation.
+    if not any(t in TERMINALS for t in str_toks):
+        score += 0.10
+
+    score = max(0.0, min(score, 1.0))
+    if score >= ARTIFACT_THRESHOLD:
+        return ("ENDING" if position == "last" else "TITLE"), score
+    return "", score
+
 
 def _loads_list(x):
     if isinstance(x, list):
@@ -320,6 +483,7 @@ def mark_title_and_dialogue(df_map, df_texts):
         df["Sentence Boundaries"] = ""
     df["TITLE"] = False
     df["DIALOGUE"] = False
+    df["TextualArtifact"] = ""
     if "ID" not in df.columns:
         df["ID"] = df.index.astype(str)
 
@@ -333,18 +497,41 @@ def mark_title_and_dialogue(df_map, df_texts):
         g = g.sort_values(["CorrSentenceID", "corr_index"],
                           kind="mergesort").copy()
         ID = str(ID)
+
+        # --- explicit JSON tags (from upstream NLP) ---
         for tag in tags_by_id.get(ID, []):
             if isinstance(tag, dict) and tag.get("type") == "title":
                 st, en = int(tag.get("start", 0)), int(tag.get("end", 0))
                 mask = (g["corr_start"] >= st) & (g["corr_end"] <= en)
                 if mask.any():
                     g.loc[mask, "TITLE"] = True
+                    g.loc[mask, "TextualArtifact"] = "TITLE"
         for sp in dlg_by_id.get(ID, []):
             if isinstance(sp, dict):
                 st, en = int(sp.get("start", 0)), int(sp.get("end", 0))
                 mask = (g["corr_start"] < en) & (g["corr_end"] > st)
                 if mask.any():
                     g.loc[mask, "DIALOGUE"] = True
+
+        # --- weighted-clue detection for first and last sentence groups ---
+        sent_ids = sorted(g["CorrSentenceID"].dropna().unique())
+        for position, sid in [("first", sent_ids[0] if sent_ids else None),
+                               ("last",  sent_ids[-1] if sent_ids else None)]:
+            if sid is None:
+                continue
+            # Skip if already flagged by explicit tags.
+            grp = g[g["CorrSentenceID"] == sid]
+            if grp["TextualArtifact"].any():
+                continue
+            toks = grp["corr_token"].fillna("").astype(str).tolist()
+            artifact_type, _ = _score_artifact(toks, position)
+            if artifact_type:
+                g.loc[grp.index, "TextualArtifact"] = artifact_type
+                if artifact_type == "TITLE":
+                    g.loc[grp.index, "TITLE"] = True
+                    # Reserve CorrSentenceID 0 for titles (Entry 002).
+                    g.loc[grp.index, "CorrSentenceID"] = 0
+
         g.loc[g["TITLE"], "Sentence Boundaries"] = "Title"
         parts.append(g)
     df = pd.concat(parts).reset_index(drop=True)
@@ -395,8 +582,9 @@ def add_sentence_boundary_flags(df_map):
         return None
 
     for (_id, _sid), g in df.groupby(["ID", "CorrSentenceID"], sort=False):
-        if g["TITLE"].all():
-            df.loc[g.index, "Sentence Boundaries"] = "Title"
+        artifact = g["TextualArtifact"].iloc[0] if "TextualArtifact" in g.columns else ""
+        if artifact or g["TITLE"].all():
+            # No CorrectBeginning / CorrectEnding for titles or endings.
             continue
         g = g.sort_values("_sort", kind="mergesort")
         b = first_content_row(g)
@@ -512,25 +700,33 @@ def _summarize_sentence(g):
     corr_tokens = g["corr_token"].tolist()
     raw_tokens = [x for x in g.get("raw_token", pd.Series([], dtype=object)
                                    ).tolist() if not pd.isna(x)]
-    b_rows = g[g["Sentence Boundaries"].astype(str).str.contains(
-        "Sentence Beginning", na=False)]
-    e_rows = g[g["Sentence Boundaries"].astype(str).str.contains(
-        "Sentence Ending", na=False)]
 
+    artifact = ""
+    if "TextualArtifact" in g.columns:
+        vals = g["TextualArtifact"].dropna()
+        artifact = str(vals.iloc[0]) if not vals.empty else ""
+
+    # Boundary verdicts are blank for textual artifacts (Entry 001).
     begin_ok = np.nan
     end_ok = np.nan
-    if not b_rows.empty:
-        chk = " | ".join(b_rows["BoundaryCheck"].dropna().astype(str))
-        begin_ok = 1 if "Correct Beginning" in chk else (
-            0 if "Incorrect Beginning" in chk else np.nan)
-    if not e_rows.empty:
-        chk = " | ".join(e_rows["BoundaryCheck"].dropna().astype(str))
-        end_ok = 1 if "Correct Ending" in chk else (
-            0 if "Incorrect Ending" in chk else np.nan)
+    if not artifact:
+        b_rows = g[g["Sentence Boundaries"].astype(str).str.contains(
+            "Sentence Beginning", na=False)]
+        e_rows = g[g["Sentence Boundaries"].astype(str).str.contains(
+            "Sentence Ending", na=False)]
+        if not b_rows.empty:
+            chk = " | ".join(b_rows["BoundaryCheck"].dropna().astype(str))
+            begin_ok = 1 if "Correct Beginning" in chk else (
+                0 if "Incorrect Beginning" in chk else np.nan)
+        if not e_rows.empty:
+            chk = " | ".join(e_rows["BoundaryCheck"].dropna().astype(str))
+            end_ok = 1 if "Correct Ending" in chk else (
+                0 if "Incorrect Ending" in chk else np.nan)
 
     ops = g.get("op", pd.Series([], dtype=object))
     return pd.Series({
         "SentenceRef": g["SentenceRef"].iloc[0],
+        "TextualArtifact": artifact,
         "CorrectedSentence": _detok(corr_tokens),
         "RawSentence": _detok(raw_tokens) if raw_tokens else "",
         "TokensInSentence": int(len(g)),
@@ -554,7 +750,7 @@ def run_step9(df_map, df_texts):
     if "corr_index" in df_map.columns:
         sort_cols.append("corr_index")
     wm = df_map.sort_values(sort_cols, kind="mergesort").copy()
-    wm = wm[~wm["TITLE"].astype(bool)].copy()
+    # Keep all rows including artifacts; _summarize_sentence handles them.
 
     q = df_texts.set_index("ID")[["InputQuality"]] if "InputQuality" \
         in df_texts.columns else None
