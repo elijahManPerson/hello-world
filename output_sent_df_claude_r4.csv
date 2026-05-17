@@ -1,0 +1,541 @@
+SentenceRef,TextualArtifact,CorrectedSentence,RawSentence,TokensInSentence,EditsInSentence,EqualsInSentence,Insertions,Deletions,Replacements,CorrectBeginning,CorrectEnding,InputQuality
+BBCMHJPT_s001,,There once was a girl called Lilly.,There once was a girl called lilly,8,1,7,1,0,0,1.0,0.0,ok
+BBCMHJPT_s002,,She had a pet horse.,she had pet horse,6,2,4,2,0,0,0.0,0.0,ok
+BBCMHJPT_s003,,They went for a walk.,they went for walk,6,2,4,2,0,0,0.0,0.0,ok
+BBCMHJPT_s004,,"""Oh no,"" she said,"" we are lost.",oh no she said we are lost,13,6,7,6,0,0,0.0,0.0,ok
+BBCMHJPT_s005,,What should we do?,what should we do,5,1,4,1,0,0,0.0,0.0,ok
+BBCMHJPT_s006,,"""They finally got home.",. They finaly got home,6,3,3,1,0,2,1.0,0.0,ok
+BBCMHJPT_s007,,"""YAAAY, we are home.",YAAAY we are home,7,3,4,3,0,0,1.0,0.0,ok
+BBCMHJPT_s008,,That was a long trip.,that was a long trip,6,1,5,1,0,0,0.0,0.0,ok
+BBCMHJPT_s009,,"Let' s go to bed now,"" the horse said.",lest' s go to bed now the horse said,13,4,9,3,0,1,0.0,0.0,ok
+BBCMHJPT_s010,,"""Why, you can talk?",why you can talk,7,3,4,3,0,0,0.0,0.0,ok
+BBCMHJPT_s011,,"""Lilly said.",lilly said.,4,1,3,1,0,0,0.0,1.0,ok
+BBKBYNDW_s001,,wrire a narrative story abouta search for some thing.,wrire a narrative story abouta search for some thing.,10,0,10,0,0,0,0.0,1.0,ok
+BBKBYNDW_s002,,your story could be about a plaace or a searck for an obj ect.,your story could be about a plaace or a searck for an obj ect.,15,0,15,0,0,0,0.0,1.0,ok
+BBKBYNDW_s003,,lt could be you can what happens if it isn own idea adout a search for something.,lt could be you can what happens if it isn own idea adout a search for something.,18,0,18,0,0,0,0.0,1.0,ok
+BBKBYNDW_s004,,information orbs WH,information orbs WH,3,0,3,0,0,0,0.0,,ok
+BBRWTLYV_s001,,"The Failed Submarine I had always wanted go on a submarine, especially a Sub 2, a type of submarine that has every thing you can think of.","The Failed Submarine I had always wanted go on a submarine, especially a Sub 2, a type of submarine that has every thing you can think of.",30,0,30,0,0,0,1.0,1.0,ok
+BBRWTLYV_s002,,"Floating chairs, luxurious king sized beds, rooms as large as a house, those were all average features on a Sub 2.","Floating chairs, luxurious king sized beds, rooms as large as a house, those were all average features on a Sub 2.",25,0,25,0,0,0,1.0,1.0,ok
+BBRWTLYV_s003,,But the major problem was the' bargain' price.,But the major problem was the' bargain' price.,11,0,11,0,0,0,1.0,1.0,ok
+BBRWTLYV_s004,,It was only about a few thousand dollars a night to go on an underwater and moving' hotel'.,It was only about a few thousand dollars a night to go on an underwater and moving' hotel'.,21,0,21,0,0,0,1.0,1.0,ok
+BBRWTLYV_s005,,But that became possible after we got an email from the NSW Lotteries giving us a few million dollars after we won.,But that became possible after we got an email from the NSW Lotteries giving us a few million dollars after we won.,23,0,23,0,0,0,1.0,1.0,ok
+BBRWTLYV_s006,,"The first thing I did was persuade my mum into going on a Sub 2 trip for a few nights, and she, at last, reluctantly agreed to go on a few nights around Australia.","The first thing I did was persuade my mum into going on a Sub 2 trip for a few nights, and she, at last, reluctantly agreed to go on a few nights around Australia.",38,0,38,0,0,0,1.0,1.0,ok
+BBRWTLYV_s007,,"Hopes high, I boarded the luxury submarine, and the first thing my family and I did was go to the dining room.","Hopes high, I boarded the luxury submarine, and the first thing my family and I did was go to the dining room.",25,0,25,0,0,0,1.0,1.0,ok
+BBRWTLYV_s008,,We sat on floating recliners and ate pricey food made by a private chef on a floating table the size of a bus.,We sat on floating recliners and ate pricey food made by a private chef on a floating table the size of a bus.,24,0,24,0,0,0,1.0,1.0,ok
+BBRWTLYV_s009,,But the highlight of the trip around Australia was the rooms we had booked for rooms for the journey.,But the highlight of the trip around Australia was the rooms we had booked for rooms for the journey.,20,0,20,0,0,0,1.0,1.0,ok
+BBRWTLYV_s010,,"The door was unlocked by Face ID, and we were greeted to a spectacular dining room with an underwater view.","The door was unlocked by Face ID, and we were greated to a spectacular dining room with an underwater view.",22,1,21,0,0,1,1.0,1.0,ok
+BBRWTLYV_s011,,"As we plonked down onto the hovering king - sized beds, the boat stopped gliding through the ocean like a knife.","As we plonked down onto the hovering king - sized beds, the boat stopped gliding through the ocean like a knife.",23,0,23,0,0,0,1.0,1.0,ok
+BBRWTLYV_s012,,"Assuming that it was normal, we started jumping on the bed.","Assuming that it was normal, we started jumping on the bed.",13,0,13,0,0,0,1.0,1.0,ok
+BBRWTLYV_s013,,"Suddenly, disaster struck, like lightning to a tree.","Suddenly, disaster struck, like lightening to a tree.",11,1,10,0,0,1,1.0,1.0,ok
+BBRWTLYV_s014,,The glass pane that gave us an underwater view cracked like hammer to a rice cracker.,The glass pane that gave us an underwater view cracked like hammer to a rice cracker.,17,0,17,0,0,0,1.0,1.0,ok
+BBRWTLYV_s015,,Pools of water rushed into the immense room as the waves pushed against us without mercy.,Pools of water rushed into the immense room as the waves pushed against us without mercy.,17,0,17,0,0,0,1.0,1.0,ok
+BBRWTLYV_s016,,"We paddled out the window, and for a vertiginous moment, my family and I felt like drowning as we realised we were about a hundred meters below sea level, but the moment left as soon as it had come.","We paddled out the window, and for a vertiginous moment, my family and I felt like drowning as we realised we were about a hundred meters below sea level, but the moment left as soon as it had come.",43,0,43,0,0,0,1.0,1.0,ok
+BBRWTLYV_s017,,"I kicked my legs as brutally as I could, one hand paddling and the other clutched onto Mum.","I kicked my legs as brutally as I could, one hand paddling and the other clutched onto Mum.",20,0,20,0,0,0,1.0,1.0,ok
+BBRWTLYV_s018,,"At last, I broke free of the nightmare and I was inhaling lungfuls of fresh, salty air, overwhelmed to be at the surface rather than the bottom.","At last, I broke free of the nightmare and I was inhaling lungfulls of fresh, salty air, overwhelmed to be at the surface rather than the bottom.",31,1,30,0,0,1,1.0,1.0,ok
+BBRWTLYV_s019,,But it wasn' t over.,But it wasn' t over.,7,0,7,0,0,0,1.0,1.0,ok
+BBRWTLYV_s020,,We were still hundreds of meters away from a sandy shore.,We were still hundreds of meters away from a sandy shore.,12,0,12,0,0,0,1.0,1.0,ok
+BBRWTLYV_s021,,"I paddled for hours, my thigh and arms screaming at my head in pain.","I paddled for hours, my thigh and arms screaming at my head in pain.",16,0,16,0,0,0,1.0,1.0,ok
+BBRWTLYV_s022,,My family was in the same boat as me as Mum just decided to glide smoothly through the cool water.,My family was in the same boat as me as Mum just decided to glide smoothly through the cool water.,21,0,21,0,0,0,1.0,1.0,ok
+BBRWTLYV_s023,,"After a few hours of breathing and kicking and breathing and kicking, a familiar beach came in sight.","After a few hours of breathing and kicking and breathing and kicking, a familiar beach came in site.",20,1,19,0,0,1,1.0,1.0,ok
+BBRWTLYV_s024,,It was Bondi.,It was Bondi.,4,0,4,0,0,0,1.0,1.0,ok
+BBRWTLYV_s025,,"I was filled to the brim of joy, and I paddled hard with the strength I suddenly knew I had.","I was fulled to the brim of joy, and I paddked hard with the strength I suddenly knew I had.",22,2,20,0,0,2,1.0,1.0,ok
+BBRWTLYV_s026,,I stood like a hero.,I stood like a hero.,6,0,6,0,0,0,1.0,1.0,ok
+BBRWTLYV_s027,,"I wanted to fell the highest spruce and strip it and trim it clean with my bare hands with the strength I knew I had, before collapsing in pools of tears.","I wanted to fell the highest spruce and strip it and trim it clean with my bare hands with the strength I knew I had, before collapsing in pools of tears.",33,0,33,0,0,0,1.0,1.0,ok
+BCDVWQDF_s001,,The Diamond Ring Emmy was just having breakfast at home when she picked up the newspaper.,"The diamond ring Emmy was just having breakfast at home when she picked up the newspaper,",17,1,16,0,0,1,1.0,0.0,ok
+BCDVWQDF_s002,,She read it.,she read it.,4,0,4,0,0,0,0.0,1.0,ok
+BCDVWQDF_s003,,Diamond ring for 5000 million dollars.,Diamond ring for 5000 million dollars.,7,0,7,0,0,0,1.0,1.0,ok
+BCDVWQDF_s004,,Emmy immediately jumped.,Emmy immediatly jumped.,4,1,3,0,0,1,1.0,1.0,ok
+BCDVWQDF_s005,,"""If I sell the diamond ring I' ll be so rich!","""If I sell the diamond ring I' ll be so rich!",14,0,14,0,0,0,1.0,1.0,ok
+BCDVWQDF_s006,,"""said Emmy.","""said Emmy.",4,0,4,0,0,0,0.0,1.0,ok
+BCDVWQDF_s007,,So the search began.,So the search began,5,1,4,1,0,0,1.0,0.0,ok
+BCDVWQDF_s008,,"Emmy searched all the stores, until she came across a jewellery store with fancy jewels.",Emmy searched all the stores. Until she came across a jewelery store with fancy jewels.,17,2,15,0,0,2,1.0,1.0,ok
+BCDVWQDF_s009,,She looked through the window and she saw the diamond ring.,She looked through the window and she saw the diamond ring.,12,0,12,0,0,0,1.0,1.0,ok
+BCDVWQDF_s010,,She went inside the store pretending to be a customer.,She went inside the store pretending to be a customer.,11,0,11,0,0,0,1.0,1.0,ok
+BCDVWQDF_s011,,Emmy was so close to the diamond ring.,Emmy was so close to the diamond ring,9,1,8,1,0,0,1.0,0.0,ok
+BCDVWQDF_s012,,"When she went close enough to almost reach it, an alarm went off.","when she went close enough to almost reach it, an alarm went off.",15,0,15,0,0,0,0.0,1.0,ok
+BCDVWQDF_s013,,"Emmy ran out the store as quickly as she could, but all the doors and windows started closing.",Emmy ran out the store as quickly as she could but all the doors and windows started closing.,20,1,19,1,0,0,1.0,1.0,ok
+BCDVWQDF_s014,,Then the police came in.,Then the police came in.,6,0,6,0,0,0,1.0,1.0,ok
+BCDVWQDF_s015,,"""Stop thief!","""Stop thief!",4,0,4,0,0,0,1.0,1.0,ok
+BCDVWQDF_s016,,"""they screamed.","""they screamed.",4,0,4,0,0,0,0.0,1.0,ok
+BCDVWQDF_s017,,"Emmy decided to break the door down, so she broke the door down and escaped.",Emmy decided to break the door down so she broke the door down and escaped.,17,1,16,1,0,0,1.0,1.0,ok
+BCDVWQDF_s018,,The police chased her.,The police chased her.,5,0,5,0,0,0,1.0,1.0,ok
+BCDVWQDF_s019,,The police were right on her tail.,The police were right on her tail,8,1,7,1,0,0,1.0,0.0,ok
+BCDVWQDF_s020,,She still ran at full speed even though she was really tired.,she still ran at full speed even though she was really tired.,13,0,13,0,0,0,0.0,1.0,ok
+BCDVWQDF_s021,,The police however didn' t give up.,The police however didn' t give up,9,1,8,1,0,0,1.0,0.0,ok
+BCDVWQDF_s022,,They kept chasing her.,they kept chasing her.,5,0,5,0,0,0,0.0,1.0,ok
+BCDVWQDF_s023,,Emmy came across a corner and she turned.,Emmy came across a corner and she turned,9,1,8,1,0,0,1.0,0.0,ok
+BCDVWQDF_s024,,The police however didn' t see the turn and they just sped past the corner.,the police however didn' t see the turn and they just sped past the corner.,17,0,17,0,0,0,0.0,1.0,ok
+BCDVWQDF_s025,,So Emmy however managed to escape.,So Emmy however managed to escape.,7,0,7,0,0,0,1.0,1.0,ok
+BCDVWQDF_s026,,"She still wanted the diamond ring, but all the trauma that she went through today just to steal the diamond ring, she didn' t want the sort of intensity again, so she quit stealing and just went to have lunch.",She still wanted the diamond ring but all the trama that she went through today just to steal the diamond ring she didn' t want the sort of intencity again so she quit stealing and just went to have lunch.,45,5,40,3,0,2,1.0,1.0,ok
+BCXSFTWC_s001,,If you are locking for a dimiens go to most diming most dimiens it will tack abort 2 days and will ayiss and mabbing will tack 2 wecks if you are luck and most liy tack for ayissits the bist idere and do not git my stared with the ufvor was to fined dimiens.,If you are locking for a dimiens go to most diming most dimiens it will tack abort 2 days and will ayiss and mabbing will tack 2 wecks if you are luck and most liy tack for ayissits the bist idere and do not git my stared with the ufvor was to fined dimiens,55,1,54,1,0,0,1.0,0.0,ok
+BCXSFTWC_s002,,I' m dun telling.,im dun telling.,6,3,3,2,0,1,0.0,1.0,ok
+BGRRHYPQ_s001,,The story about the boy that was on a search for a moon rock.,the story about the boy that was on a search for a moon rock,15,1,14,1,0,0,0.0,0.0,ok
+BGRRHYPQ_s002,,"Once upon a time there was a boy who really wanted to go to the moon to collect a moon rock, but he just didn' t know how.",Once upon a time there was a boy who really wanted to go to the moon to collect a moon rock but he just didn' t know how.,31,1,30,1,0,0,1.0,1.0,ok
+BGRRHYPQ_s003,,"He asked his mum, dad, sister and brother, but they all just said to go to a space station.","He asked his mum, dad, sister and brother but they all just said to go to a space station.",23,1,22,1,0,0,1.0,1.0,ok
+BGRRHYPQ_s004,,Eventually he listened to them.,Eventually he listened to them,6,1,5,1,0,0,1.0,0.0,ok
+BGRRHYPQ_s005,,"He went to Sydney space station, but they said he' s too young, for he was 9 and you had to be at least 18 to go on a space mission.",he went to SYDNEY space station but they said he' s to young for he was 9 and you had to be at least 18 to go on a space mission,35,4,31,3,0,1,0.0,0.0,ok
+BGRRHYPQ_s006,,But he wouldn' t give up.,but he wouldn' t give up,8,1,7,1,0,0,0.0,0.0,ok
+BGRRHYPQ_s007,,"He asked all his friends and extended family, but they just said the same as his family.",he asked all his friends and extended family but they just said the same as his family.,19,1,18,1,0,0,0.0,1.0,ok
+BGRRHYPQ_s008,,"He told them he tried that, but they said he couldn' t. His friends and family didn' t know what to tell him.",He told them he tried that but they said he couldn' t his friends and family didn' t know what to tell him.,28,2,26,2,0,0,1.0,1.0,ok
+BGRRHYPQ_s009,,The boy spent days researching how he could go to the moon.,The boy spent days researching how he could go to the moon.,13,0,13,0,0,0,1.0,1.0,ok
+BGRRHYPQ_s010,,Most of the things he found were just space stations in different countries or just Sydney space station.,Most of the things he found were just space stations in different countries or just SYDNEY space station.,19,0,19,0,0,0,1.0,1.0,ok
+BGRRHYPQ_s011,,"He considered just waiting until he was 18, but one part of him told him to keep going and he listened to that part, so he asking more and more people until finally somebody told him something different.",he considered just waiting until he was 18 but one part of him told him to keep going and he listened to that part so he asking more and more people until finally sombody told him something different,41,4,37,3,0,1,0.0,0.0,ok
+BGRRHYPQ_s012,,He told him to go to Sydney space station' s website and buy one hundred dollar tickets for the special kids ride.,he told him to go to SYDNEY space stations website and buy one hundred dollar tickets for the special kids ride.,24,3,21,2,0,1,0.0,1.0,ok
+BGRRHYPQ_s013,,"So he begged his mum and dad until finally they bought him the tickets, and after a two hour journey he made it to the moon and brought back a moon rock.",So he begged his mum and dad until finally they bought him the tickets and after a two hour journey he made it to the moon and brought back a moon rock.,34,1,33,1,0,0,1.0,1.0,ok
+BGRRHYPQ_s014,,He was so excited and thankful that his mum and dad bought him the ticket that he hugged them for a whole hour.,He was so excited and thankful that his mum and dad bought him the ticket that he hugged them for a whole hour.,24,0,24,0,0,0,1.0,1.0,ok
+BGZZHTXS_s001,,"""Goodbye Dad, don' t forget to get me the manual,"" Marcus said to his father, oblivious to the fact this might be the last time he will ever get the chance to talk to his father.","""Goodbye Dad, don' t forget to get me the manual"" Marcus said to his father, oblivious to the fact this might be the last time he will ever get the chance to talk to his father.",43,1,42,1,0,0,1.0,1.0,ok
+BGZZHTXS_s002,,"His father was an older gentleman, a mechanic, but he was the only breadwinner of the family.","His father was an older gentlemen, a mechanic but he was the only breadwinner of the family.",20,2,18,1,0,1,1.0,1.0,ok
+BGZZHTXS_s003,,He would frequently go to West Germany because business was significantly better there.,He would frequently go to west germany because business was significantly better there.,14,0,14,0,0,0,1.0,1.0,ok
+BGZZHTXS_s004,,The sun shone over Marcus' s face but it was too cold to get out of bed.,"The sun shone over Marcus' s face but it was too cold to get out of bed,",19,1,18,0,0,1,1.0,0.0,ok
+BGZZHTXS_s005,,"The breeze shook his window vigorously, but excited to see the new manual his father had brought home, he got out of bed, got changed and went downstairs.","the breeze shook his window vigirously, but exicted to see the new Manual his father had brought home, he got out of bed, got changed and went downstairs.",32,2,30,0,0,2,0.0,1.0,ok
+BGZZHTXS_s006,,"""Where' s pa?","""Where' s pa?",6,0,6,0,0,0,1.0,1.0,ok
+BGZZHTXS_s007,,"""Marcus uttered, growing worried as his dad is never late.","""Marcus uttered, growing worried as his dad is never late.",13,0,13,0,0,0,1.0,1.0,ok
+BGZZHTXS_s008,,"His mother did not respond and so he asked again,"" Where' s pa?","His mother did not respond and so he asked again"" Where' s pa?",17,1,16,1,0,0,1.0,1.0,ok
+BGZZHTXS_s009,,"""growing louder and more anxious each time.","""growing louder and more anxious each time,",9,1,8,0,0,1,0.0,0.0,ok
+BGZZHTXS_s010,,His mother' s response never changed.,his mother' s response never changed.,8,0,8,0,0,0,0.0,1.0,ok
+BGZZHTXS_s011,,"He peeked out of his window and he saw tanks, soldiers and most importantly a huge wall dividing the west and the east.","He peeked out of his window and he saw tanks, soliders and most importantly a huge wall dividing the west and the east.",25,1,24,0,0,1,1.0,1.0,ok
+BGZZHTXS_s012,,"He ran around the wall for hours scouring for his father, but when he found him, he was just out of reach.","He ran around the wall for hours scouring for his father, but when he found him, he was just out of reach.",25,0,25,0,0,0,1.0,1.0,ok
+BGZZHTXS_s013,,"Marcus ran home and told his mother that he saw his father, but when Marcus' s mother saw his father it was too much for her to bear.","Marcus ran home and told his mother that he saw his father, but when Marcus' s mother saw his father it was too much for her to bare,",31,2,29,0,0,2,1.0,0.0,ok
+BGZZHTXS_s014,,"She tried to run and she was shot dead like a dog, like something without emotions, feelings, people that she cares for or a life.","she tried to run and she was shot dead like a dog, like something without emotions, feelings, people that she cares for or a life.",29,0,29,0,0,0,0.0,1.0,ok
+BGZZHTXS_s015,,"Marcus' s life changed in mere hours, from living with a father and a mother in a warm, loving, caring home to being an orphan stranded by himself.","Marcus' s life changed in mere hours, from living with a father and a mother in a warm, loving, caring home to being an orphan stranded by himself.",33,0,33,0,0,0,1.0,1.0,ok
+BGZZHTXS_s016,,"He took a cart and collected plastic, sold the plastic and did so to earn food to eat, but that was not the life Marcus wanted, had worked for.","He took a cart and collected plastic, sold the plastic and did so to earn food to eat, but that was not the life Marcus wanted, had worked for.",33,0,33,0,0,0,1.0,1.0,ok
+BGZZHTXS_s017,,During his walks looking for plastic he had realised that the bank rose above all and it was closest to the wall.,During his walks looking for plastic he had realised that the bank rose above all and it was closest to the wall.,23,0,23,0,0,0,1.0,1.0,ok
+BGZZHTXS_s018,,"It was his ticket to freedom, but Marcus could not afford to even enter the bank.",It was his ticket to freedom but Marcus could not afford to even enter the bank.,18,1,17,1,0,0,1.0,1.0,ok
+BGZZHTXS_s019,,"Marcus loved everything to do with flying, from paper airplanes to helicopters and everything in between like gliders.","Marcus loved everything to do with flying, from paper airplanes to helicopters and everything in between like gliders.",20,0,20,0,0,0,1.0,1.0,ok
+BGZZHTXS_s020,,"So he saved some of the plastic, slowly building a ladder that can be folded small enough to be concealed at night but big enough to break into the bank' s windows.",So he saved some of the plastic slowly building a ladder that can be folded small enough to be concleaed at night but big enough to break into the bank' s windows.,35,2,33,1,0,1,1.0,1.0,ok
+BGZZHTXS_s021,,The bank was a tall but thin building and only the first two floors were utilised.,"The bank was a tall but thin building and only the first two floors were utilised,",17,1,16,0,0,1,1.0,0.0,ok
+BGZZHTXS_s022,,"If he could get to the third floor then he could get to the top, and that he did.","if he could get to the third floor then he could get to the top, and that he did.",21,0,21,0,0,0,0.0,1.0,ok
+BGZZHTXS_s023,,"He created a glider, put it on, jumped to the west dodging all soldiers and ran to his father and they all lived happily ever after.","He created a glider, put it on, jumped to the west dodging all soliders and ran to his father and they all lived happily ever after.",29,1,28,0,0,1,1.0,1.0,ok
+BHLQHBRW_s001,,"The search"" Come on kids, let me tell you the story of the day I went to Mars in search of the most rare item in the universe,"" Martha Herry said as she tucked her children into bed.","The search"" Come on kids, let me tell you the story of the day I went to Mars in search of the most rare item in the universe,"" Martha Herry said as she tucked her children into bed.",43,0,43,0,0,0,1.0,1.0,ok
+BHLQHBRW_s002,,"""This is one long story.","""This is one long story.",7,0,7,0,0,0,1.0,1.0,ok
+BHLQHBRW_s003,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s004,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s005,,"""It was March 19th, 3202.","""It was March 19th, 3202.",8,0,8,0,0,0,1.0,1.0,ok
+BHLQHBRW_s006,,"Everyone had to evacuate Earth due to the shortage of air, but the only other planet with enough air to sustain the human race was covered in hostile alien creatures.","Everyone had to evacuate Earth due to the shortage of air, but the only other planet with enough air to sustain the human race was covered in hostile alien creatures.",32,0,32,0,0,0,1.0,1.0,ok
+BHLQHBRW_s007,,"Sure, the terms' alien' and' creature' were a little outdated for most people, but it was the only way you could describe those horrifying creatures.","Sure the terms' alien' and' creature' were a little outdated for most people, but it was the only way you could describe those horrifying creatures.",32,1,31,1,0,0,1.0,1.0,ok
+BHLQHBRW_s008,,"They had a long, thin, parchment white body.","They had a long, thin, parchment white body.",11,0,11,0,0,0,1.0,1.0,ok
+BHLQHBRW_s009,,"The more private areas of their bodies were covered in long, thick, black tentacles which had a second use; to strangle and tear apart their prey.","The more private areas of their bodies were covered in long, thick, black tenticeles which had a second use; to strangle and tear apart their prey.",30,1,29,0,0,1,1.0,1.0,ok
+BHLQHBRW_s010,,No one could ever hope to find peace with these creatures.,No one could ever hope to find peace with these creatures.,12,0,12,0,0,0,1.0,1.0,ok
+BHLQHBRW_s011,,"Except, of course, one particular item which could make them peaceful.","Except, of course, one particular item which could make them peaceful.",14,0,14,0,0,0,1.0,1.0,ok
+BHLQHBRW_s012,,"However, it was lost centuries ago, and its existence was only found recently.","However, it was lost centuries ago, and its existence was only found recently.",16,0,16,0,0,0,1.0,1.0,ok
+BHLQHBRW_s013,,"I, however, Martha Herry, was put to the task of locating this object and saving mankind!","I, however, Martha Herry, was put to the task of locating this object and saving mankind!",20,0,20,0,0,0,1.0,1.0,ok
+BHLQHBRW_s014,,The object was described in an ancient scroll found by one of the few survivors who were sent to the aliens' home planet.,The object was described in an ancient scroll found by one of the few survivors who were sent to the aliens' home planet.,25,0,25,0,0,0,1.0,1.0,ok
+BHLQHBRW_s015,,"As I was in the high - tech, military grade spaceship to the center planet in the solar system, I looked through the scroll to decipher it and figure out which planet we had to go to.","As I was in the high - tech, military grade spaceship to the center planet in the solar system, I looked through the scroll to decipher it and figure out which planet we had to go to.",40,0,40,0,0,0,1.0,1.0,ok
+BHLQHBRW_s016,,"Of course, I was not doing it alone.","Of course, I was not doing it alone.",10,0,10,0,0,0,1.0,1.0,ok
+BHLQHBRW_s017,,"I had team of people working beside me; Jules, Amelia, Peter, Jack, and Esmerelda.","I had team of people working beside me; Jules, Amelia, Peter, Jack, and Esmerelda.",20,0,20,0,0,0,1.0,1.0,ok
+BHLQHBRW_s018,,"My team quickly deciphered almost all of the scroll, with the only part that we couldn' t figure out being a single sentence at the end, which was written in a completely different cipher to the rest of the scroll.","My team quickly deciphered almost all of the scroll, with the only part that we couldn' t figure out being a single sentence at the end, which was written in a completely different cipher to the rest of the scroll.",44,0,44,0,0,0,1.0,1.0,ok
+BHLQHBRW_s019,,"However, we didn' t think much of it, as we were already far too excited to be going to the planet with the unknown object already.","However, we didn' t think much of it, as we were already far too excited to be going to the planet with the unknown object already.",30,0,30,0,0,0,1.0,1.0,ok
+BHLQHBRW_s020,,"We soon arrived at Magmatrella, the 7th hottest planet in the solar system ( this is because it is extremely close to a blue sun).","We soon arrived at Magmatrella, the 7th hottest planet in the solar system ( this is because it is extremely close to a blue sun).",28,0,28,0,0,0,1.0,1.0,ok
+BHLQHBRW_s021,,The team quickly geared up and headed outside.,The team quickly geared up and headed outside.,9,0,9,0,0,0,1.0,1.0,ok
+BHLQHBRW_s022,,"""How hard was it to put on the helmet if you have so much ginger hair, mum?","""How hard was it to put on the helmet if you have so much ginger hair, mum?",20,0,20,0,0,0,1.0,1.0,ok
+BHLQHBRW_s023,,"""Andrew asked curiously.","""Andrew asked curiously.",5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s024,,"""She probably tied it up, stupid,"" Angela hissed at her younger brother.","""She probably tied it up, stupid,"" Angela hissed at her younger brother.",17,0,17,0,0,0,1.0,1.0,ok
+BHLQHBRW_s025,,"""Hey, no fighting,"" I said disapprovingly.","""Hey, no fighting,"" I said disapprovingly.",11,0,11,0,0,0,1.0,1.0,ok
+BHLQHBRW_s026,,"""Anyway, on with the story.","""Anyway, on with the story.",8,0,8,0,0,0,1.0,1.0,ok
+BHLQHBRW_s027,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s028,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s029,,"""Peter followed the small map on the scroll and the rest of us followed him.","""Peter followed the small map on the scroll and the rest of us followed him.",17,0,17,0,0,0,1.0,1.0,ok
+BHLQHBRW_s030,,We soon arrived at a temple that was hidden underneath the space.,We soon arrived at a temple that was hidden underneath the space.,13,0,13,0,0,0,1.0,1.0,ok
+BHLQHBRW_s031,,"""How have the explorers never found this place?","""How have the explorers never found this place?",10,0,10,0,0,0,1.0,1.0,ok
+BHLQHBRW_s032,,"""Esmerelda wondered aloud.","""Esmerelda wondered aloud.",5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s033,,"""Do you think -"" Her question was cut short with a scream as a long black tentacle protruded from her stomach.","""Do you think -"" Her question was cut short with a scream as long black tenticle protruded from her stomach.",24,2,22,1,0,1,1.0,1.0,ok
+BHLQHBRW_s034,,Another tentacle wrapped itself around her head as it slowly crushed it.,Another tenticle wrapped itself around her head as it slowly crushed it.,13,1,12,0,0,1,1.0,1.0,ok
+BHLQHBRW_s035,,The rest of us were frozen in horror as we looked at the gruesome scene before us.,The rest of us were frozen in horror as we looked at the gruesome scene before us.,18,0,18,0,0,0,1.0,1.0,ok
+BHLQHBRW_s036,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s037,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s038,,"""Wait, wait, mum!","""Wait, wait mum!",7,1,6,1,0,0,1.0,1.0,ok
+BHLQHBRW_s039,,We' re kids!,We' re kids!,5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s040,,If you keep going then we' re going to have nightmares!,If you keep going then we' re going to have nightmares!,13,0,13,0,0,0,1.0,1.0,ok
+BHLQHBRW_s041,,"""little Andrew whined.","""little Andrew whined.",5,0,5,0,0,0,0.0,1.0,ok
+BHLQHBRW_s042,,"""But I want to hear the rest!","""But I want to hear the rest!",9,0,9,0,0,0,1.0,1.0,ok
+BHLQHBRW_s043,,"""Angela said angrily.","""Angela said angrily.",5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s044,,Martha shook her head.,Martha shook her head.,5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s045,,"""Andrew is right.","""Andrew is right.",5,0,5,0,0,0,1.0,1.0,ok
+BHLQHBRW_s046,,"But if you want to hear the rest of the story later, I could tell you what happens tomorrow, eh?","But if you want to hear the rest of the story later, I could tell you what happens tomorrow, eh?",23,0,23,0,0,0,1.0,1.0,ok
+BHLQHBRW_s047,,"""she said with a smile.","""she said with a smile.",7,0,7,0,0,0,0.0,1.0,ok
+BHLQHBRW_s048,,"""Goodnight.","""Goodnight.",3,0,3,0,0,0,1.0,1.0,ok
+BHLQHBRW_s049,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s050,,.,.,1,0,1,0,0,0,,1.0,ok
+BHLQHBRW_s051,,"""","""",1,0,1,0,0,0,,,ok
+BPHVBHZV_s000,TITLE,Boom!,Boom!,2,0,2,0,0,0,,,ok
+BPHVBHZV_s002,,It was an explosion.,it was an explosion,5,1,4,1,0,0,0.0,0.0,ok
+BPHVBHZV_s003,,The world shook and life flashed before my eyes.,the world shook asnd lfe flashed before my eyes,10,3,7,1,0,2,0.0,0.0,ok
+BPHVBHZV_s004,,"I struggled to get up, buried in the remains of what' s of our house.","i struggled to get up burried in te remains of whats of our house,",18,7,11,3,0,4,0.0,0.0,ok
+BPHVBHZV_s005,,"This was the third bombing in 1 week, but we couldn' t leave.",this was the third bombing in 1 week but we couldn' t leave.,16,1,15,1,0,0,0.0,1.0,ok
+BPHVBHZV_s006,,The civil war in Iraq had reached a new level.,The civil war in iraq had reached a new level.,11,0,11,0,0,0,1.0,1.0,ok
+BQTNFJFX_s001,,The ag is god unecon.,the ag is god unecon.,6,0,6,0,0,0,0.0,1.0,ok
+BYCBGCFC_s001,,A young boy named Jasper dreamed of being a super hero.,A young boy Named Jasper dreamed of being a supur hero.,12,1,11,0,0,1,1.0,1.0,ok
+BYCBGCFC_s002,,"He loved super heros, then years and years past, it was his time to shine.",He loved super heros then years and years past it was his time to shine.,18,2,16,2,0,0,1.0,1.0,ok
+BYCBGCFC_s003,,"But there was one problem, there was no one to save and he does not have a suit to be a super hero, so that night he made his own suit and named his self Water Man, which gave him self the ability to shoot typs of water a liquids to save people.",But there was one problem there was no one to save and he dose not have a suit to be a super hero so that night he made his own suit and named his self water man which gave him self the ability to shoot typs of water a liquids to save people.,57,4,53,3,0,1,1.0,1.0,ok
+BYCBGCFC_s004,,So the did soome praying and got the ability!,So the did soome praying and got the ability!,10,0,10,0,0,0,1.0,1.0,ok
+BYCBGCFC_s005,,"The next morning a truck of sus men invaded the town, so the did his power, but they had a realy strong sheil that is water proof and it did not work.",The next morning a truck of sus men invaded the town so the did his power but they had a realy strong sheil that is water proof and it did not work.,35,2,33,2,0,0,1.0,1.0,ok
+BYCBGCFC_s006,,"Then he found a sord and combineded with his water power, but it hurt them but did not finish them.",Then He found a sord and combineded with his water power but it hurt them but did not finish them,22,2,20,2,0,0,1.0,0.0,ok
+BYCBGCFC_s007,,"Jasper thought it was over, but he tried as hard as he could with his power and boom, they wer deafeted.",Jasper thought it was over but He tried as hard as he could with his power and boom they wer deafeted,24,3,21,3,0,0,1.0,0.0,ok
+BYCBGCFC_s008,,"Everyone was cherring for him, he was even on the news, then he got comfermed o real superhero and he still rememberd from this day.",everyone was cherring for him he was even on the news then he got comfermed o real superhero and he still rememberd from this day.,28,2,26,2,0,0,0.0,1.0,ok
+BYCBGCFC_s009,,,.,1,1,0,0,1,0,,,ok
+BZFPRLBR_s001,,"Hi, my name is Ronald Davedson.",Hi my name is ronald davedson,8,2,6,2,0,0,1.0,0.0,ok
+BZFPRLBR_s002,,"I' m 15 years old and I live with my younger sister Ella, as well as my girlfriend Jane and of course Mum and Dad.",im 15 years old and i live with my younger sister ella aswell as my girlfriend Jane and of corse mum and dad.,28,7,21,4,0,3,0.0,1.0,ok
+BZFPRLBR_s003,,Times here have been hard for us.,Times hear have been hard for us,8,2,6,1,0,1,1.0,0.0,ok
+BZFPRLBR_s004,,"Dad lost his job, Ella' s school got bombed and we' re in debt.",dad lost his job ellas school got bomed and were in depth,18,10,8,6,0,4,0.0,0.0,ok
+BZFPRLBR_s005,,"I can' t help but feel bad for Mum, all this pressure on her shoulders.",i caint help but feel bad for mum all this presher on hear sholders.,18,7,11,3,0,4,0.0,1.0,ok
+BZFPRLBR_s006,,So that' s why I' m going to help fight in the war!,So thats why im going to help fight in the war!,16,6,10,4,0,2,1.0,1.0,ok
+BZFPRLBR_s007,,"I have no other purpose, I dropped out of school.",i have no other perpose i droped out of school,12,4,8,2,0,2,0.0,0.0,ok
+BZFPRLBR_s008,,"I feel like a deflated balloon bopping around with no purpose, plus I have always wanted to go out and explore. 2 weeks later.",i feel like a deflated ballon boping around with no porpose pluse i have ways whantd to go out and exsplore. 2 weeks later,27,9,18,2,0,7,0.0,0.0,ok
+BZFPRLBR_s009,,"Hi again, I said goodbye to my girlfriend and family and now I have made it.",Hi again i said bye to my friend and family and now i have made it.,18,3,15,1,0,2,1.0,1.0,ok
+BZFPRLBR_s010,,I' m in a fancy uniform fighting for my country.,Im in in a fancy uniform fighting for my contrey,12,5,7,2,0,3,1.0,0.0,ok
+BZFPRLBR_s011,,"I have made a few friends, Pete, Locky and Bob.",I have made a few friend Pete Locky and Bob.,13,3,10,2,0,1,1.0,1.0,ok
+BZFPRLBR_s012,,They all say they miss home but so far I don' t. 2 days later.,They all say they miss home but so far i dont 2 day later.,18,5,13,3,0,2,1.0,1.0,ok
+BZFPRLBR_s013,,"Hi there again, I think I have gone deaf.",Hi there again i think i have gone,11,3,8,3,0,0,1.0,0.0,ok
+BZFPRLBR_s014,,"It' s really hard to hear anything, all I hear is gunshots all the time.",death its really hard to hear anything all i hear is shots all the time,18,6,12,3,0,3,0.0,0.0,ok
+BZFPRLBR_s015,,"We lost Pete yesterday, I couldn' t stop my tears.",we lost pete yeterday i couldent stop my tears,13,6,7,4,0,2,0.0,0.0,ok
+BZFPRLBR_s016,,"In fact 15 men dead, I feel so sorry for their families.",infact 15 man dead i feel so sory for there familys,14,8,6,3,0,5,0.0,0.0,ok
+BZFPRLBR_s017,,I wish Pete was here.,i whish pete was hear.,6,2,4,0,0,2,0.0,1.0,ok
+BZFPRLBR_s018,,"Hi, I feel like I have wanted to fight this war for so long now, but now I realised I don' t! I miss my family, I want to go home.",Hi i feel like i have whanted to fight this war for so long now but now i realised i dont! i miss my family i whant to go home,37,9,28,6,0,3,1.0,0.0,ok
+BZFPRLBR_s019,,"I feel this emptiness from in my heart, like I long something but I don' t know what.",i feel this emptness from in my hart like i long thing but i dont know what.,21,7,14,3,0,4,0.0,1.0,ok
+BZFPRLBR_s020,,"Like it wants me and it' s calling my name, but I' m just a blind soul not knowing where to go.",like it whants me and its calling my name but im just a blined sol not knowing where to go,26,11,15,6,0,5,0.0,0.0,ok
+BZFPRLBR_s021,,"Hey there, I feel like the luckiest person in the world.",hey there i feel like the luckyist person in the world,13,3,10,2,0,1,0.0,0.0,ok
+BZFPRLBR_s022,,I got shot in the hip and I survived.,i got shot in the hip and i sivived,10,2,8,1,0,1,0.0,0.0,ok
+BZFPRLBR_s023,,I go home in a week if we win and I hope we do! 1 week later.,i go home in a week if we win and i hope we do! 1 week later,19,1,18,1,0,0,0.0,0.0,ok
+BZFPRLBR_s024,,"We won, we really did.",we won we really did,7,2,5,2,0,0,0.0,0.0,ok
+BZFPRLBR_s025,,"I realise now I wanted something else so badly, my family.",i rilise now i some thing eles so badly my family,13,6,7,2,0,4,0.0,0.0,ok
+BZFPRLBR_s026,,I was too busy thinking what I wanted to accomplish so we could get the money.,i was to bissy thinking what i whanted to acomplish so we could get the money,17,5,12,1,0,4,0.0,0.0,ok
+BZFPRLBR_s027,,"We, I pushed my family and friends aside.",we. i pushed my family and friends aside.,10,1,9,0,0,1,0.0,1.0,ok
+BZFPRLBR_s028,,,all good girl gun some whanted,6,6,0,0,6,0,,,ok
+CDTYDYHH_s001,,In space fhfa98fh3hf9s8hfusifhf hafsfba8b4 bfaibfie74 faf = efgr904he9hfs9hgf f8sg48twg8wgf YAY,In space fhfa98fh3hf9s8hfusifhf hafsfba8b4 bfaibfie74 faf = efgr904he9hfs9hgf f8sg48twg8wgf YAY,10,0,10,0,0,0,1.0,,ok
+CFPPXHTD_s001,,"Many moons ago, there were three eggs.",Many moons ago there were three eggs.,9,1,8,1,0,0,1.0,1.0,ok
+CFPPXHTD_s002,,"One from two gorilla warriors, another from two golden phoenixes and the most legendary from the lord.","one from two gorilla warriors, another from two golden phonixes and the most legendery from the lord.",19,2,17,0,0,2,0.0,1.0,ok
+CFPPXHTD_s003,,.,.,1,0,1,0,0,0,,1.0,ok
+CFPPXHTD_s004,,.,.,1,0,1,0,0,0,,1.0,ok
+CFPPXHTD_s005,,"the ultra serpent, and his name was Gathor.",the ultra serpent and his name was gathor.,10,1,9,1,0,0,0.0,1.0,ok
+CFPPXHTD_s006,,"A few months later, the eggs hatched, but the babies realised that they were under attack!","A few months later, the eggs hatched but the babys realised that they were under attack!",19,2,17,1,0,1,1.0,1.0,ok
+CFPPXHTD_s007,,They ran as fast as they could.,They ran as fast as they could.,8,0,8,0,0,0,1.0,1.0,ok
+CFPPXHTD_s008,,"Sadly, only one escaped, the serpent' s baby, but he was all alone because everyone died during the battle.",Sadlyonly one escaped the serpents baby but he was all alone because everyone died during the battle,24,9,15,7,0,2,0.0,0.0,ok
+CFPPXHTD_s009,,"""I have no friends, no food and no shelter,"" he cried.","""I have no freinds no food and no shelter"" he cried",16,4,12,3,0,1,1.0,0.0,ok
+CFPPXHTD_s010,,"A few days later, he gave himself a name and it was Gojo.","A few days later, he gave himself a name and it wasGojo.",15,2,13,1,0,1,1.0,1.0,ok
+CFPPXHTD_s011,,"Ten years later, Gojo made armor, a base, a gym?","Ten years later, Gojo made armor, a base, a gym?",14,0,14,0,0,0,1.0,1.0,ok
+CFPPXHTD_s012,,Gojo still had one thing on his checklist and it was revenge on the attackers.,Gojo still had one thing on his checklist and it wasrevenge on the attackers.,16,2,14,1,0,1,1.0,1.0,ok
+CFPPXHTD_s013,,"A few days later, Gojo found the attackers' base.","A few days later, Gojo found the attackers base",12,2,10,2,0,0,1.0,0.0,ok
+CFPPXHTD_s014,,"They tried attacking Gojo, but his armor was too strong.",they tried attacking Gojo but his armor was to strong,12,3,9,2,0,1,0.0,0.0,ok
+CFPPXHTD_s015,,He did a flying backflip and wiped them all out.,he did a flying backflip and wiped them all out.,11,0,11,0,0,0,0.0,1.0,ok
+CFPPXHTD_s016,,Then he lived the happiest life ever after.,Then he lived the happiest life ever after.,9,0,9,0,0,0,1.0,1.0,ok
+CQGSWKXY_s001,,"""I was in the beach with Lily.","""I was in the beach whith Lily",9,2,7,1,0,1,1.0,0.0,ok
+CQGSWKXY_s002,,We were going on a search in the water for Nose.,we wher going on a search in the whater for Nose,12,3,9,1,0,2,0.0,0.0,ok
+CQGSWKXY_s003,,"When we found him, we found out that he did not want to be recorded.",when we found him we found out that he did not whant to be recorded,17,3,14,2,0,1,0.0,0.0,ok
+CQGSWKXY_s004,,Then we became best friends.,then we became best friends,6,1,5,1,0,0,0.0,0.0,ok
+CQGSWKXY_s005,,We said goodbye and went back home.,we said by and whent back home,8,3,5,1,0,2,0.0,0.0,ok
+CQGSWKXY_s006,,"We never forgot each other, and every time we went to the beach we played together, and that' s how our story ends.",we never forgot each other and every time we whent to the beach we played together and that' s how our story end',27,5,22,2,0,3,0.0,0.0,ok
+CQGSWKXY_s007,,"""","""NOSE THE FISH good s.",7,6,1,0,6,0,,,ok
+CQZNGMVS_s001,,"""Cabin crew, get ready for takeoff,"" the captain said, as I sat back into my seat.","""Cabin crew, get ready for takeoff,' The captain said, as I sat back into my seat.",22,1,21,0,0,1,1.0,1.0,ok
+CQZNGMVS_s002,,"I needed a holiday, and this trip to New Zealand would be the perfect get - away.","I needed a holiday, and this trip to New Zealand would be the perfect get - away.",19,0,19,0,0,0,1.0,1.0,ok
+CQZNGMVS_s003,,"I flicked open my phone, switched it on Airplane Mode and started to browse through the magazines displayed in front of me.","I flicked open my phone, switched it on Airplane Mode and started to browse through the magazines displayed in front of me.",24,0,24,0,0,0,1.0,1.0,ok
+CQZNGMVS_s004,,"I had trust that I would be in good hands, because the pilot who was flying the plane was said to be an expert.","I had trust that I would be in good hands, because the pilot who was flying the plane was said to be an expert.",26,0,26,0,0,0,1.0,1.0,ok
+CQZNGMVS_s005,,"I let out a relaxed sigh, and closed my eyes.","I let out a relaxed sigh, and closed my eyes.",12,0,12,0,0,0,1.0,1.0,ok
+CQZNGMVS_s006,,"When my eyelids opened, I could tell we were already in the air.","When my eyelids opened, I could tell we were already in the air.",15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s007,,"The plane was drifting ever so smoothly, that I couldn' t even tell where we were until I looked out the window.","The plane was drifting ever so smoothly, that I couldn' t even tell where we were until I looked out the window.",25,0,25,0,0,0,1.0,1.0,ok
+CQZNGMVS_s008,,The sunset was absolutely mesmerising and the clouds were pure white.,The sunset was absolutely mesmerising and the clouds were pure white.,12,0,12,0,0,0,1.0,1.0,ok
+CQZNGMVS_s009,,It felt like I was floating through Heaven on Earth.,It felt like I was floating through Heaven on Earth.,11,0,11,0,0,0,1.0,1.0,ok
+CQZNGMVS_s010,,I smiled to myself but my thoughts were interrupted by a loud gunshot.,I smiled to myself but my thoughts were interrupted by a loud gunshot.,14,0,14,0,0,0,1.0,1.0,ok
+CQZNGMVS_s011,,"I panicked, not knowing if what I heard was true.","I panicked, not knowing if what I heard was true.",12,0,12,0,0,0,1.0,1.0,ok
+CQZNGMVS_s012,,I peeked above the seats and saw a tall man with shaggy hair standing at the front of the plane.,I peeked above the seats and saw a tall man with shaggy hair standing at the front of the plane.,21,0,21,0,0,0,1.0,1.0,ok
+CQZNGMVS_s013,,Next to him were two other men.,Next to him were two other men.,8,0,8,0,0,0,1.0,1.0,ok
+CQZNGMVS_s014,,"One was rather short, wearing a t - shirt and shorts.","One was rather short, wearing a t - shirt and shorts.",13,0,13,0,0,0,1.0,1.0,ok
+CQZNGMVS_s015,,"The other was wearing a singlet, bermudas and slippers.","The other was wearing a singlet, bermudas and slippers.",11,0,11,0,0,0,1.0,1.0,ok
+CQZNGMVS_s016,,They both were armed with guns and knives.,They both were armed with guns and knives.,9,0,9,0,0,0,1.0,1.0,ok
+CQZNGMVS_s017,,"I sank back into my seat, my heart thumping louder than their footsteps.","I sank back into my seat, my heart thumping louder than their footsteps.",15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s018,,"I could hear them talking, and knew that they were not from Australia.","I could hear them talking, and knew that they were not from Australia.",15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s019,,They were talking in their native language.,They were talking in their native language.,8,0,8,0,0,0,1.0,1.0,ok
+CQZNGMVS_s020,,I couldn' t understand what they were saying but all I knew was that I had to save everyone on this plane.,I couldn' t understand what they were saying but all I knew was that I had to save everyone on this plane.,24,0,24,0,0,0,1.0,1.0,ok
+CQZNGMVS_s021,,Somehow.,Somehow.,2,0,2,0,0,0,1.0,1.0,ok
+CQZNGMVS_s022,,I waited until the other two sidekicks had left to go to the toilet.,I waited until the other two sidekicks had left to go to the toilet.,15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s023,,They probably were loading their guns.,They probably were loading their guns.,7,0,7,0,0,0,1.0,1.0,ok
+CQZNGMVS_s024,,The first that crossed my mind was the three were standing in front of the cabin crew area and the kitchen.,The first that crossed my mind was the three were standing in front of the cabin crew area and the kitchen.,22,0,22,0,0,0,1.0,1.0,ok
+CQZNGMVS_s025,,"If they were blocking that area there, they would have been blocking the cabin crew from exiting the kitchen area.","If they were blocking that area there, they would have been blocking the cabin crew from exiting the kitchen area.",22,0,22,0,0,0,1.0,1.0,ok
+CQZNGMVS_s026,,"My eyes searched the plane and found one lady crouched down with the cart in front of her, her eyes tearing up.","My eyes searched the plane and found one lady crouched down with the cart in front of her, her eyes tearing up.",24,0,24,0,0,0,1.0,1.0,ok
+CQZNGMVS_s027,,"Another gunshot fired, and one of the male cabin crew assistants fell to the ground, blood splurting out of his chest.","Another gunshot fired, and one of the male cabin crew assistants fell to the ground, blood splurting out of his chest.",24,0,24,0,0,0,1.0,1.0,ok
+CQZNGMVS_s028,,I tip - toed my way to the lady with the cart and asked her if she knew how many people were on this plane and how much cabin crew were on this plane.,I tip - toed my way to the lady with the cart and asked her if she knew how many people were on this plane and how much cabin crew were on this plane.,35,0,35,0,0,0,1.0,1.0,ok
+CQZNGMVS_s029,,She told me there were 156 people on the flight and 17 cabin crew.,She told me there were 156 people on the flight and 17 cabin crew.,15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s030,,"I had to think of a plan and quick, because after I had got up, a gunshot fired and the target was an old woman, who had gotten up to go to the toilet, and now she was dead.","I had to think of a plan and quick, because after I had got up, a gunshot fired and the target was an old woman, who had gotten up to go to the toilet, and now she was dead.",44,0,44,0,0,0,1.0,1.0,ok
+CQZNGMVS_s031,,"Once the supposed' leader' had sauntered to the back of the plane, and the two sidekicks had followed him, I sprang out of my chair, carrying my pocket knife with me.","Once the supposed' leader' had sauntered to the back of the plane, and the two sidekicks had followed him, I sprang out of my chair, carrying my pocket knife with me.",37,0,37,0,0,0,1.0,1.0,ok
+CQZNGMVS_s032,,"I treaded quietly towards the kitchen and found a man tied up, crouching down in the corner.","I treaded quietly towards the kitchen and found a man tied up, crouching down in the corner.",19,0,19,0,0,0,1.0,1.0,ok
+CQZNGMVS_s033,,I pressed my index finger to my lips and carefully cut the rope around his mouth.,I pressed my index finger to my lips and carefully cut the rope around his mouth.,17,0,17,0,0,0,1.0,1.0,ok
+CQZNGMVS_s034,,"I told him to go and tell the pilot what was going on, and a few moments later, the pilot came out of the cockpit.","I told him to go and tell the pilot what was going on, and a few moments later, the pilot came out of the cockpit.",28,0,28,0,0,0,1.0,1.0,ok
+CQZNGMVS_s035,,He made an announcement saying that the plane would be landing at the nearest stop because they needed more fuel.,He made an announcement saying that the plane would be landing at the nearest stop because they needed more feul.,21,1,20,0,0,1,1.0,1.0,ok
+CQZNGMVS_s036,,He made his way back into the cockpit and I could hear him talking to the assistant pilot.,He made his way back into the cockpit and I could hear him talking to the assistant pilot.,19,0,19,0,0,0,1.0,1.0,ok
+CQZNGMVS_s037,,I could tell they were both scared and worried but they knew they had to put on a brave face.,I could tell they were both scared and worried but they knew they had to put on a brave face.,21,0,21,0,0,0,1.0,1.0,ok
+CQZNGMVS_s038,,Three more gunshots fired before the plane had touched down in New South Wales.,Three more gunshots fired before the plane had touched down in New South Wales.,15,0,15,0,0,0,1.0,1.0,ok
+CQZNGMVS_s039,,"Police dressed in protective gear carrying their shields, negotiators and the control tower came rushing out.","Police dressed in protective gear carrying their sheilds, negotiators and the control tower came rushing out.",18,1,17,0,0,1,1.0,1.0,ok
+CQZNGMVS_s040,,The pilot said that the next plane ride would be in two hours so everyone could get off the plane.,The pilot said that the next plane ride would be in two hours so everyone could get off the plane.,21,0,21,0,0,0,1.0,1.0,ok
+CQZNGMVS_s041,,"Murmurs went around the aircraft and as soon the first person stepped out of the plane, his knee buckled and he fell straight down the stairs.","Murmurs went around the aircraft and as soon the first person stepped out of the plane, his knee buckled and he fell straight down the stairs.",28,0,28,0,0,0,1.0,1.0,ok
+CQZNGMVS_s042,,There was blood pouring out of his chest and head.,There was blood pouring out of his chest and head.,11,0,11,0,0,0,1.0,1.0,ok
+CQZNGMVS_s043,,I now realised that this would be harder than I thought.,I now realized that this would be harder than I thought.,12,1,11,0,0,1,1.0,1.0,ok
+CQZNGMVS_s044,,.,.,1,0,1,0,0,0,,1.0,ok
+CQZNGMVS_s045,,.,.,1,0,1,0,0,0,,1.0,ok
+CQZNGMVS_s046,,,',1,1,0,0,1,0,,,ok
+CTBTJBVW_s000,TITLE,Splash!,splash,2,1,1,1,0,0,,,ok
+CTBTJBVW_s002,,There was a person.,there was a person,5,1,4,1,0,0,0.0,0.0,ok
+CVJMQWMZ_s001,,The walls almost seemed to enclose on him the further he scavenged through the mountain tunnel.,The walls almost seemed to enclose on him the further he scavenged through themountain tunnel.,17,2,15,1,0,1,1.0,1.0,ok
+CVJMQWMZ_s002,,Each step he took felt like he was further and further away from what he wanted.,Each step he took felt like he was further and further away from what he wanted.,17,0,17,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s003,,"He had 2 choices, to turn back and reapproach the warmth of the noon sunlight or to continue forward into the dimly lit tunnel, into the unknown.","He had 2 choices, to turn back and reapproach the warmth of the noon sunlight or to continue forward into the dimly lit tunnel, into the unknown.",30,0,30,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s004,,Jack looked back to his scrapped and stained map as he shone the burning torch against the sandstone walls.,Jack looked back to his scrapped and stained map as he shone the burning torch against the sandstone walls.,20,0,20,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s005,,"A pattern, a drawing and a series of ancient writing.","A pattern, a drawing and a series of ancient writing.",12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s006,,"He glided his torch against the walls as he continued walking through the seemingly endless tunnel, feeling slightly claustrophobic.","He glided his torch against the walls as he continued walking through the seemingly endless tunnel, feeling slightly claustrophobic.",21,0,21,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s007,,He still had someone waiting for him.,He still had someone waiting for him.,8,0,8,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s008,,The thought of this made him pick up his speed a bit.,The thought of this made him pick up his speed a bit.,13,0,13,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s009,,The map in his caloused hands had a small line of writing that was easy to miss if you did not pay attention.,The map in his caloused hands had a small line of writing that was easy to miss if you did not pay attention.,24,0,24,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s010,,"""The answer,"" read the lone man outloud.","""The answer,"" read the lone man outloud.",11,0,11,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s011,,"He had seen and read that same sentence many times before, maybe even hundreds of times.","He had seen and read that same sentence many times before, maybe even hundreds of times.",18,0,18,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s012,,It was the only thing that he could think about throughout the entire time he had been trying to search for the so - called treasure.,It was the only thing that he could think about throughout the entire time he had been trying to search for the so - called treasure.,27,0,27,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s013,,He continued ahead until he accidentally kicked something hard a brittle.,He continued ahead until he accidentally kicked something hard a brittle.,12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s014,,Jack immediately stooped down to example the dusty floor below him.,Jack immediately stooped down to example the dusty floor below him.,12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s015,,"Shining the torch on the ground, Jack noticed something.","Shining the torch on the ground, Jack noticed something.",11,0,11,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s016,,An out of place tile that had the symbol of the sun on it.,An out of place tile that had the symbol of the sun on it.,15,0,15,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s017,,He wiped the dust of the grey tile and pressed down.,He wiped the dust of the grey tile and pressed down.,12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s018,,"The earth began to shake as debris fell from the roof, down to the ground as Jack cowered in fear.","The earth began to shake as debris fell from the roof, down to the ground as Jack cowered in fear.",22,0,22,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s019,,He looked forward as a beam of light seemed to appear in front of him.,He looked forward as a beam of light seemed to appear in front of him.,16,0,16,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s020,,The shaking stopped as the light grew larger.,The shaking stopped as the light grew larger.,9,0,9,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s021,,What was it?,What was it?,4,0,4,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s022,,Would it be the end to this desert journey?,Would it be the end to this desert journey?,10,0,10,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s023,,He had to know.,He had to know.,5,0,5,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s024,,Jack raced towards the beam of light as a trail of dust began forming behind him.,Jack raced towards the beam of light as a trail of dust began forming behind him.,17,0,17,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s025,,The bright ray of sunshine shone into his eyes as he came to a halt.,The bright ray of sunshine shone into his eyes as he came to a halt.,16,0,16,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s026,,A ruin with skulls all over the ground?,A ruin with skulls all over the ground?,9,0,9,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s027,,A room with glimmering gold and gems?,A room with glimmering gold and gems?,8,0,8,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s028,,Or maybe simply a trap and his wasted effort.,Or maybe simply a trap and his wasted effort.,10,0,10,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s029,,It was none of these.,It was none of these.,6,0,6,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s030,,"Before him was a simple stone with a thin, delicate golden vase.","Before him was a simple stone with a thin, delicate golden vase.",14,0,14,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s031,,The sun shone in from a large peephole in the roof that no one was able to notice.,The sun shone in from a large peephole in the roof that no one was able to notice.,19,0,19,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s032,,"Jack stepped forward, careful of any traps that would be laid onto the ground.","Jack stepped forward, careful of any traps that would be laid onto the ground.",16,0,16,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s033,,"He slowly approached the dusty, yet shining vase.","He slowly approached the dusty, yet shining vase.",10,0,10,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s034,,Is this what he wanted?,Is this what he wanted?,6,0,6,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s035,,"""The answer,"" Jack mumbled, scanning his surroundings.","""The answer,"" Jack mumbled, scanning his surroundings.",12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s036,,"""Is this it?","""Is this it?",5,0,5,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s037,,"""He dusted the golden ornament with his gloved hands when suddenly, his surroundings began to change.","""He dusted the golden ornament with his gloved hands when suddenly, his surroundings began to change.",19,0,19,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s038,,"Plentiful of gold, silver and jewels appeared in front of him.","Plentiful of gold, silver and jewels appeared in front of him.",13,0,13,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s039,,"Jack lifted his hands from the vase and in the blink of an eye, everything was gone.","Jack lifted his hands from the Vase and in the blink of an eye, everything was gone.",19,0,19,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s040,,What was happening?,What was happening?,4,0,4,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s041,,Jack placed his hands on the glimmering artefact again as the dirty sandstone ruins started transforming again.,Jack placed his hands on the glimmering artefact again as the dirty sandstone ruins started transforming again.,18,0,18,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s042,,"This time, a sweet alluring voice spoke up.","This time, a sweet alluring voice spoke up.",10,0,10,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s043,,"""Riches, money, jewels,"" it said,"" is this what you want?","""Riches, Money, Jewels."" it said,"" Is this what you want?",18,1,17,0,0,1,1.0,1.0,ok
+CVJMQWMZ_s044,,"""As tempting as it was, Jack shook his head.","""As tempting as it was, Jack shook his head.",12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s045,,He grew up in a less fortunate household with his sister.,He grew up in a less fortunate household with his sister.,12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s046,,"He had always dreamt of being wealthy, being able to live every single day without being hungry, but he wanted something else this time.","He had always dreamt of being wealthy, being able to live every single day without being hungry, but he wanted something else this time.",27,0,27,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s047,,"The voice muttered out a low"" hmm"" and continued.","The voice muttered out a low"" hmm"" and continued.",12,0,12,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s048,,"""Power, glory and fame?","""Power, glory and fame?",7,0,7,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s049,,"""it said as Jack could see his surroundings change again, this time into an extravagant castle lined with gold and red carpets.","""it said as Jack could see his surroundings change again, this time into an extravagant castle lined with gold and red carpets.",25,0,25,0,0,0,0.0,1.0,ok
+CVJMQWMZ_s050,,"Once again, Jack shook his head.","Once again, Jack shook his head.",8,0,8,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s051,,"""What is it then, wandering traveller, what have you come to see me for?","""What is it then, wandering traveller, what have you come to see me for?",18,0,18,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s052,,""""" For health, my family -"""" What can you provide for me, in exchange for my good deeds?",""""" For health, my family -"""" What can you provide for me, in exchange for my good deeds?",24,0,24,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s053,,"""said the voice.","""said the voice",5,1,4,1,0,0,0.0,0.0,ok
+CVJMQWMZ_s054,,Jack thought for a bit.,Jack thought for a bit.,6,0,6,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s055,,"""Anything, even if it means my life,"" he said.","""Anything, even if it means my life."" he said.",14,1,13,0,0,1,1.0,1.0,ok
+CVJMQWMZ_s056,,The voice seemed quite impressed as Jack felt his surroundings change again.,The voice seemed quite impressed as Jack felt his surroundings change again.,13,0,13,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s057,,"""Your wish has been granted.","""Your wish has been granted.",7,0,7,0,0,0,1.0,1.0,ok
+CVJMQWMZ_s058,,"""","""",1,0,1,0,0,0,,,ok
+DDNDNLWD_s001,,My dreams are somewhat interesting.,My dreams are somewhat interesting.,6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s002,,They used to be normal.,They used to be normal.,6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s003,,"The average, everyday ones.","The average, everyday ones.",6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s004,,"Fantasies, school life, nightmares.","Fantasies, school life, nightmares.",7,0,7,0,0,0,1.0,1.0,ok
+DDNDNLWD_s005,,"But when I turned 13, everything changed.","But when I turned 13, everything changed.",9,0,9,0,0,0,1.0,1.0,ok
+DDNDNLWD_s006,,"I started having more realistic ones, but the funny thing was - they weren' t realistic at all.","I started having more realistic ones, but the funny thing was - they weren' t realistic at all.",21,0,21,0,0,0,1.0,1.0,ok
+DDNDNLWD_s007,,"Just last night, I dreamt my house burnt down, my sister and my parents were shrivelled in the fire.","Just last night, I dreamt my house burnt down, my sister and my parents were shrivelled in the fire.",22,0,22,0,0,0,1.0,1.0,ok
+DDNDNLWD_s008,,A pile of disintegrated ashes.,A pile of disintagrated ashes.,6,1,5,0,0,1,1.0,1.0,ok
+DDNDNLWD_s009,,But there was a voice in the background.,But there was a voice in the background.,9,0,9,0,0,0,1.0,1.0,ok
+DDNDNLWD_s010,,Always the same one.,Always the same one.,5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s011,,"""You are not who you think you are.","""You are not who you think you are.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s012,,"""It took me about a month to realise that voice was mine.","""It took me about a month to realise that voice was mine.",14,0,14,0,0,0,1.0,1.0,ok
+DDNDNLWD_s013,,It haunted me - even when I wasn' t dreaming.,It haunted me - even when I wasn' t dreaming.,12,0,12,0,0,0,1.0,1.0,ok
+DDNDNLWD_s014,,"For a while, I just stopped sleeping.","For a while, I just stopped sleeping.",9,0,9,0,0,0,1.0,1.0,ok
+DDNDNLWD_s015,,You can imagine how that turned out.,You can imagine how that turned out.,8,0,8,0,0,0,1.0,1.0,ok
+DDNDNLWD_s016,,"""Sky!","""Sky!",3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s017,,"""a voice cuts through my thoughts, clearing my foggy head.","""a voice cuts through my thoughts, clearing my foggy head.",13,0,13,0,0,0,0.0,1.0,ok
+DDNDNLWD_s018,,"""Are you coming to dinner, or what?","""Are you coming to dinner, or what?",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s019,,""""" Sorry, Mum!",""""" Sorry, mum!",6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s020,,"""I yell back over my shoulder.","""I yell back over my shoulder.",8,0,8,0,0,0,1.0,1.0,ok
+DDNDNLWD_s021,,"""I' ll be a sec.","""I' ll be a sec.",8,0,8,0,0,0,1.0,1.0,ok
+DDNDNLWD_s022,,"""Technically, I' m in the attic.","""Technically, I' m in the attic.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s023,,"However, the attic is so full of family treasures that I discovered, it' s more like a safe.","However, the attic is so full of family treasures that I discovered, it' s more like a safe.",22,0,22,0,0,0,1.0,1.0,ok
+DDNDNLWD_s024,,The attic makes all these memories and dreams come clear as day.,The attic makes all these memories and dreams come clear as day.,13,0,13,0,0,0,1.0,1.0,ok
+DDNDNLWD_s025,,I just don' t know why.,I just don' t know why.,8,0,8,0,0,0,1.0,1.0,ok
+DDNDNLWD_s026,,"After dinner, the weird voice starts calling me again.","After dinner, the weird voice starts calling me again.",11,0,11,0,0,0,1.0,1.0,ok
+DDNDNLWD_s027,,"I clamp my hands over my ears, trying to muffle out the screams.","I clamp my hands over my ears, trying to muffle out the screams.",15,0,15,0,0,0,1.0,1.0,ok
+DDNDNLWD_s028,,"My sister, Ruby, looks at me strangely.","My sister, Ruby, looks at me strangely.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s029,,"""Sky, will you stop doing that?","""Sky, will you stop doing that?",9,0,9,0,0,0,1.0,1.0,ok
+DDNDNLWD_s030,,That' s the third time you' ve done that this week.,That' s the third time you' ve done that this week.,14,0,14,0,0,0,1.0,1.0,ok
+DDNDNLWD_s031,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s032,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s033,,"""she says huffily, flicking back a strand of blonde hair.","""she says huffily, flicking back a strand of blonde hair.",13,0,13,0,0,0,0.0,1.0,ok
+DDNDNLWD_s034,,"""I' m fine!","""I' m fine!",6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s035,,I' m fine.,I' m fine.,5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s036,,I just.,I just.,3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s037,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s038,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s039,,"""I sigh.","""I sigh.",4,0,4,0,0,0,1.0,1.0,ok
+DDNDNLWD_s040,,"""Why do I look so different from you all?","""Why do I look so different from you all?",11,0,11,0,0,0,1.0,1.0,ok
+DDNDNLWD_s041,,"""I finally look at her in the eye, and instantly regret it.","""I finally look at her in the eye, and instantly regret it.",15,0,15,0,0,0,1.0,1.0,ok
+DDNDNLWD_s042,,Those blue eyes are so cold it' s a wonder they don' t turn to ice any second.,Those blue eyes are so cold it' s a wonder they don' t turn to ice any second.,21,0,21,0,0,0,1.0,1.0,ok
+DDNDNLWD_s043,,Ruby scoffs.,Ruby scoffs.,3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s044,,"""I don' t care.","""I don' t care.",7,0,7,0,0,0,1.0,1.0,ok
+DDNDNLWD_s045,,Maybe you were adopted.,Maybe you were adopted.,5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s046,,"""I stop.","""I stop.",4,0,4,0,0,0,1.0,1.0,ok
+DDNDNLWD_s047,,Is this it?,Is this it?,4,0,4,0,0,0,1.0,1.0,ok
+DDNDNLWD_s048,,Is this what I have been looking for?,Is this what I have been looking for?,9,0,9,0,0,0,1.0,1.0,ok
+DDNDNLWD_s049,,Ruby said it as a joke.,Ruby said it as a joke.,7,0,7,0,0,0,1.0,1.0,ok
+DDNDNLWD_s050,,Not a particularly funny one - but it was still a joke.,Not a particularly funny one - but it was still a joke.,13,0,13,0,0,0,1.0,1.0,ok
+DDNDNLWD_s051,,"All the jigsaw pieces fit pretty perfectly, though.","All the jigsaw pieces fit pretty perfectly, though.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s052,,"Mum, Dad, and Ruby all have blonde hair, pale skin and blue eyes.","Mum, dad, and Ruby all have blonde hair, pale skin and blue eyes.",17,0,17,0,0,0,1.0,1.0,ok
+DDNDNLWD_s053,,"Meanwhile, I look extremely contrasting with my olive skin, dark eyes, and brown hair streaked with highlights.","Meanwhile, I look extremely contrasting with my olive skin, dark eyes, and brown hair streaked with highlights.",21,0,21,0,0,0,1.0,1.0,ok
+DDNDNLWD_s054,,They' re a very tall family as well.,They' re a very tall family as well.,10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s055,,"I' m average in my height, but Ruby was almost a head taller than me when she was my age.","I' m avarage in my height, but Ruby was almost a head taller than me when she was my age.",23,1,22,0,0,1,1.0,1.0,ok
+DDNDNLWD_s056,,And the voice!,And the voice!,4,0,4,0,0,0,1.0,1.0,ok
+DDNDNLWD_s057,,It all makes sense!,It all makes sense!,5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s058,,"""You are not who you think you are"" - of course!","""You are not who you think you are"" - of course!",14,0,14,0,0,0,1.0,1.0,ok
+DDNDNLWD_s059,,But then.,But then.,3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s060,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s061,,.,.,1,0,1,0,0,0,,1.0,ok
+DDNDNLWD_s062,,who are my real parents?,who are my real parents?,6,0,6,0,0,0,0.0,1.0,ok
+DDNDNLWD_s063,,"""I need to go,"" I burst out, running to the attic and slamming the splintery wooden door behind me.","""I need to go,"" I burst out, running to the attic and slamming the splintery wooden door behind me.",24,0,24,0,0,0,1.0,1.0,ok
+DDNDNLWD_s064,,"I sit on the floor, trying to process it.","I sit on the floor, trying to process it.",11,0,11,0,0,0,1.0,1.0,ok
+DDNDNLWD_s065,,"A few times, I think that it is ridiculous.","A few times, I think that it is ridiculous.",11,0,11,0,0,0,1.0,1.0,ok
+DDNDNLWD_s066,,"I mean, I only figured this out today.","I mean, I only figured this out today.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s067,,My parents have to be my ones.,My parentshave to be my ones.,8,2,6,1,0,1,1.0,1.0,ok
+DDNDNLWD_s068,,The ones I have now.,The ones I have now.,6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s069,,Right?,Right?,2,0,2,0,0,0,1.0,1.0,ok
+DDNDNLWD_s070,,"I groan, struggling to make sense of it all.","I groan, struggling to make sense of it all.",11,0,11,0,0,0,1.0,1.0,ok
+DDNDNLWD_s071,,"""Where are you?","""Where are you?",5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s072,,"""I whispered.",I whispered.,4,1,3,1,0,0,1.0,1.0,ok
+DDNDNLWD_s073,,"""Why did you leave me?","""Why did you leave me?",7,0,7,0,0,0,1.0,1.0,ok
+DDNDNLWD_s074,,"""Suddenly, footsteps approach.","""Suddenly, footsteps approach.",6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s075,,I scramble to my feet.,I scramble to my feet.,6,0,6,0,0,0,1.0,1.0,ok
+DDNDNLWD_s076,,"""Sky?","""Sky?",3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s077,,"""my dad' s voice rings in my ears.","""my dad' s voice rings in my ears.",11,0,11,0,0,0,0.0,1.0,ok
+DDNDNLWD_s078,,"""Sky Willows?","""Sky Willows?",4,0,4,0,0,0,1.0,1.0,ok
+DDNDNLWD_s079,,"""I open the door, and sure enough, my parents are there.","""I open the door, and sure enough, my parents are there.",15,0,15,0,0,0,1.0,1.0,ok
+DDNDNLWD_s080,,"""I want to know what happened to them.","""I want to know what happened to them.",10,0,10,0,0,0,1.0,1.0,ok
+DDNDNLWD_s081,,"""My voice is steady, but my fear underneath it all is unmistakable.","""My voice is steady, but my fear underneath it all is unmistakable.",15,0,15,0,0,0,1.0,1.0,ok
+DDNDNLWD_s082,,"""So you finally figured it out,"" my mum sighs.","""So you finally figured it out,"" my mum sighs.",13,0,13,0,0,0,1.0,1.0,ok
+DDNDNLWD_s083,,"""Yes.","""Yes.",3,0,3,0,0,0,1.0,1.0,ok
+DDNDNLWD_s084,,What happened to them?,What happened to them?,5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s085,,"""I ask again.","""I ask again.",5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s086,,"""Oh, don' t worry.","""Oh, don' t worry.",8,0,8,0,0,0,1.0,1.0,ok
+DDNDNLWD_s087,,"""My dad smiles.","""My dad smiles.",5,0,5,0,0,0,1.0,1.0,ok
+DDNDNLWD_s088,,"Then, as if a light had been shut off, their faces contort into creepy and slightly mad features.","Then, as if a light had been shut off, their faces contort into creepy and slightly mad features.",21,0,21,0,0,0,1.0,1.0,ok
+DDNDNLWD_s089,,"""We took care of them.","""We took care of them.",7,0,7,0,0,0,1.0,1.0,ok
+DDNDNLWD_s090,,"""","""",1,0,1,0,0,0,,,ok
+DFPYDMTT_s001,,"Make it to the Moon"" 5, 4, 3, 2, 1,"" counted the lady in the H. R. S control centre.","Make it to the Moon"" 5, 4, 3, 2, 1,"" counted the lady in the H. R. S control centre.",30,0,30,0,0,0,1.0,1.0,ok
+DFPYDMTT_s002,,"""H. R. S spaceship 1, are you ready for lift off?","""H. R. S spaceship 1, are you ready for lift off?",16,0,16,0,0,0,1.0,1.0,ok
+DFPYDMTT_s003,,"""Eliza took a deep breath, clutching the edge of her seat, looking down on the world.","""Eliza took a deep breath, clutching the edge of her seat, looking down on the world.",20,0,20,0,0,0,1.0,1.0,ok
+DFPYDMTT_s004,,"""Roger that, we are ready,"" said Jim, smiling warmly at Eliza.","""Roger that, we are ready,"" said Jim, smiling warmly at Eliza.",17,0,17,0,0,0,1.0,1.0,ok
+DFPYDMTT_s005,,"""Are you ready, Moore?","""Are you ready, Moore?",7,0,7,0,0,0,1.0,1.0,ok
+DFPYDMTT_s006,,"""Eliza looked down at the nametag on her suit.","""Eliza looked down at the nametag on her suit.",11,0,11,0,0,0,1.0,1.0,ok
+DFPYDMTT_s007,,Eliza Moore.,Eliza Moore.,3,0,3,0,0,0,1.0,1.0,ok
+DFPYDMTT_s008,,"""I' m ready, captain.","""I' m ready, captain.",8,0,8,0,0,0,1.0,1.0,ok
+DFPYDMTT_s009,,"""As soon as she said it, the spaceship took off, leaving for Mission Moon.","""As soon as she said it, the spaceship took off, leaving for Mission Moon.",18,0,18,0,0,0,1.0,1.0,ok
+DFPYDMTT_s010,,Zoooooom!,Zoooooom!,2,0,2,0,0,0,1.0,1.0,ok
+DFPYDMTT_s011,,"* * *"" We are close, Moore,"" said Jim, adjusting his spacesuit.","* * *"" We are close, Moore,"" said Jim, adjusting his spacesuit.",18,0,18,0,0,0,1.0,1.0,ok
+DFPYDMTT_s012,,"""We' re close to the moon.","""We' re close to the moon.",9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s013,,"""Eliza smiled as she saw space outside her window.","""Eliza smiled as she saw space outside her window.",11,0,11,0,0,0,1.0,1.0,ok
+DFPYDMTT_s014,,"Eliza was scared of space, how it billowed out into nothing, and if you fell in, you' ll never make it out of there.","Eliza was scared of space, how it billowed out into nothing, and if you fell in, you' ll never make it out of there.",29,0,29,0,0,0,1.0,1.0,ok
+DFPYDMTT_s015,,Her thoughts were shattered as Jim put a warm hand on her shoulder.,Her thoughts were shattered as Jim put a warm hand on her shoulder.,14,0,14,0,0,0,1.0,1.0,ok
+DFPYDMTT_s016,,"""No need to be scared, mate.","""No need to be scared, mate.",9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s017,,"""Eliza smiled, and looked longingly at the refrigerator.","""Eliza smiled, and looked longingly at the refrigerator.",11,0,11,0,0,0,1.0,1.0,ok
+DFPYDMTT_s018,,"She stood up, her legs shaking as she walked over to the refrigerator.","She stood up, her legs shaking as she walked over to the refrigerator.",15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s019,,She opened the refrigerator door and: BOOM!,She opened the refrigerator door and: BOOM!,9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s020,,"""Warning, hull damaged,"" came a glitchy voice from the computer.","""Warning, hull damaged,"" came a glitchy voice from the computer.",15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s021,,Eliza shut the door and ran to the side of the spaceship.,Eliza shut the door and ran to the side of the spaceship.,13,0,13,0,0,0,1.0,1.0,ok
+DFPYDMTT_s022,,"""We' ve been hit by some sort of space rock!","""We' ve been hit by some sort of space rock!",13,0,13,0,0,0,1.0,1.0,ok
+DFPYDMTT_s023,,"""shouted Eliza.","""shouted Eliza.",4,0,4,0,0,0,0.0,1.0,ok
+DFPYDMTT_s024,,"""What are we going to do, captain?","""What are we going to do, captain?",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s025,,"""The spaceship came to a sudden halt as Jim pulled the brakes.","""The spaceship came to a sudden halt as Jim pulled the brakes.",14,0,14,0,0,0,1.0,1.0,ok
+DFPYDMTT_s026,,"""We are still going to the moon, the crew will meet us there,"" said Jim, controlling the spaceship.","""We are still going to the moon, the crew will meet us there,"" said Jim, controlling the spaceship.",24,0,24,0,0,0,1.0,1.0,ok
+DFPYDMTT_s027,,"""Moore, I need you to go outside and fix the hull.","""Moore, I need you to go outside and fix the hull.",14,0,14,0,0,0,1.0,1.0,ok
+DFPYDMTT_s028,,"""Eliza' s mouth hung open.","""Eliza' s mouth hung open.",8,0,8,0,0,0,1.0,1.0,ok
+DFPYDMTT_s029,,"""Me?","""Me?",3,0,3,0,0,0,1.0,1.0,ok
+DFPYDMTT_s030,,"Captain, I don' t what to do.","Captain, I don' t what to do.",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s031,,""""" Yes, you do.",""""" Yes, you do.",7,0,7,0,0,0,1.0,1.0,ok
+DFPYDMTT_s032,,"You' ve had the training, mate.","You' ve had the training, mate.",9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s033,,Time to get out there and show space what you' re made of.,Time to get out there and show space what you' re made of.,15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s034,,Do you hear me?,Do you hear me?,5,0,5,0,0,0,1.0,1.0,ok
+DFPYDMTT_s035,,"""Eliza nodded.","""Eliza nodded.",4,0,4,0,0,0,1.0,1.0,ok
+DFPYDMTT_s036,,She grabbed the tool kit and opened the side door.,She grabbed the tool kit and opened the side door.,11,0,11,0,0,0,1.0,1.0,ok
+DFPYDMTT_s037,,"Cold air seeped in, and Eliza began to float.","Cold air seeped in, and Eliza began to float.",11,0,11,0,0,0,1.0,1.0,ok
+DFPYDMTT_s038,,She pulled herself to the hull of the ship and got working.,She pulled herself to the hull of the ship and got working.,13,0,13,0,0,0,1.0,1.0,ok
+DFPYDMTT_s039,,"After screwing and hammering, the hull was good enough to fly to the moon.","After screwing and hammering, the hull was good enough to fly to the moon.",16,0,16,0,0,0,1.0,1.0,ok
+DFPYDMTT_s040,,It was all Eliza could do for now.,It was all Eliza could do for now.,9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s041,,"She pulled herself back to the ship, shut the door and made her way back to Jim.","She pulled herself back to the ship, shut the door and made her way back to Jim.",19,0,19,0,0,0,1.0,1.0,ok
+DFPYDMTT_s042,,"""I did the best I could, captain.","""I did the best I could, captain.",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s043,,"The ship should be able to fly to the moon,"" said Eliza.","The ship should be able to fly to the moon,"" said Eliza.",15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s044,,Jim started to steer the ship back to its original course.,Jim started to steer the ship back to s original course.,12,1,11,0,0,1,1.0,1.0,ok
+DFPYDMTT_s045,,"""Good job, Moore.","""Good job, Moore.",6,0,6,0,0,0,1.0,1.0,ok
+DFPYDMTT_s046,,You have proven that you are worthy to be captain for when I retire.,You have proven that you are worthy to be captain for when I retire.,15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s047,,""""" You' re retiring?",""""" You' re retiring?",7,0,7,0,0,0,1.0,1.0,ok
+DFPYDMTT_s048,,"""asked Eliza sadly.","""asked Eliza sadly.",5,0,5,0,0,0,0.0,1.0,ok
+DFPYDMTT_s049,,"""Not now, but in about 5 years.","""Not now, but in about 5 years.",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s050,,"""Eliza smiled.","""Eliza smiled.",4,0,4,0,0,0,1.0,1.0,ok
+DFPYDMTT_s051,,The spaceship stopped and everything shook.,The spaceship stopped and everything shook.,7,0,7,0,0,0,1.0,1.0,ok
+DFPYDMTT_s052,,"""We have landed,"" Jim spoke into his intercomm on his suit.","""We have landed,"" Jim spoke into his intercomm on his suit.",15,0,15,0,0,0,1.0,1.0,ok
+DFPYDMTT_s053,,"""We have landed on the moon.","""We have landed on the moon.",8,0,8,0,0,0,1.0,1.0,ok
+DFPYDMTT_s054,,"Do you copy that, H. R. S control centre?",Do you copy that H. R. S control centre?,13,1,12,1,0,0,1.0,1.0,ok
+DFPYDMTT_s055,,"""A glitchy voice came back from the comm.","""A glitchy voice came back from the comm.",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s056,,"""Copy.","""Copy.",3,0,3,0,0,0,1.0,1.0,ok
+DFPYDMTT_s057,,"Congratulations, the Moon Crew are waiting for you.","Congratulations, the Moon Crew are waiting for you.",10,0,10,0,0,0,1.0,1.0,ok
+DFPYDMTT_s058,,"""Eliza pulled the door open.","""Eliza pulled the door open.",7,0,7,0,0,0,1.0,1.0,ok
+DFPYDMTT_s059,,She lept out and landed on the moon.,She lept out and landed on the moon.,9,0,9,0,0,0,1.0,1.0,ok
+DFPYDMTT_s060,,Dust swirled everywhere.,Dust swirled everywhere.,4,0,4,0,0,0,1.0,1.0,ok
+DFPYDMTT_s061,,Moondust.,Moondust.,2,0,2,0,0,0,1.0,1.0,ok
+DFPYDMTT_s062,,Eliza was on the moon.,Eliza was on the moon.,6,0,6,0,0,0,1.0,1.0,ok
+DFPYDMTT_s063,,What an amazing ride.,What an amazing ride.,5,0,5,0,0,0,1.0,1.0,ok
+DFPYDMTT_s064,,,it',2,2,0,0,2,0,,,ok
+DNGNFXGW_s001,,Joel' s breath was short.,Joel' s breath was short.,7,0,7,0,0,0,1.0,1.0,ok
+DNGNFXGW_s002,,She staggered forward.,She staggered forward.,4,0,4,0,0,0,1.0,1.0,ok
+DNGNFXGW_s003,,"All she could think of was her village, back down the mountain.","All she could think of was her village, back down the mountain.",14,0,14,0,0,0,1.0,1.0,ok
+DNGNFXGW_s004,,Her eyes teared up.,Her eyes teared up.,5,0,5,0,0,0,1.0,1.0,ok
+DNGNFXGW_s005,,"No, she thought.","No, she thought.",5,0,5,0,0,0,1.0,1.0,ok
+DNGNFXGW_s006,,I won' t let it burn.,I won' t let it burn.,8,0,8,0,0,0,1.0,1.0,ok
+DNGNFXGW_s007,,She stood taller and clasped the sword at her waist.,She stood taller and clasped the sword at her waist.,11,0,11,0,0,0,1.0,1.0,ok
+DNGNFXGW_s008,,"As she continued up the rocky landscape, it got hotter and hotter, like she was getting closer to the sun itself.","As she continued up the rocky landscape, it got hotter and hotter, like she was getting closer to the sun itself.",24,0,24,0,0,0,1.0,1.0,ok
+DNGNFXGW_s009,,"But that' s not what is happening here, is it?","But that' s not what is happening here, is it?",13,0,13,0,0,0,1.0,1.0,ok
+DNGNFXGW_s010,,"Gritting her teeth, she stood on a rock and surveyed the land.","Gritting her teeth, she stood on a rock and surveyed the land.",14,0,14,0,0,0,1.0,1.0,ok
+DNGNFXGW_s011,,There.,There.,2,0,2,0,0,0,1.0,1.0,ok
+DNGNFXGW_s012,,The door couldn' t have been bigger than the shortest of the village children.,The door couldn' t have been bigger than the shortest of the village children.,16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s013,,"It was short and thin, and Joel had to duck through.","It was short and thin, and Joel had to duck through.",13,0,13,0,0,0,1.0,1.0,ok
+DNGNFXGW_s014,,"Lucky I' m so thin, Berte couldn' t have done this mission.","Lucky I' m so thin, Berte couldn' t have done this mission.",16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s015,,Joel smiled.,Joel smiled.,3,0,3,0,0,0,1.0,1.0,ok
+DNGNFXGW_s016,,"The thought of her wide friend soothed her a little, and steeled her resolve.","The thought of her wide friend soothed her a little, and steeled her resolve.",16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s017,,I must do this.,I must do this.,5,0,5,0,0,0,1.0,1.0,ok
+DNGNFXGW_s018,,For the village!,For the village!,4,0,4,0,0,0,1.0,1.0,ok
+DNGNFXGW_s019,,"Taking a deep breath, Joel crawled out of the small doorway into the opening room.","Taking a deep breath, Joel crawled out of the small doorway into the opening room.",17,0,17,0,0,0,1.0,1.0,ok
+DNGNFXGW_s020,,"She crept through the hallways, alert to every sound.","She creeped through the hallways, alert to every sound.",11,1,10,0,0,1,1.0,1.0,ok
+DNGNFXGW_s021,,"The rocks were warm, and as Joel progressed, she was thankful she was wearing thick shoes.","The rocks were warm, and as Joel progressed, she was thankful she was wearing thick shoes.",19,0,19,0,0,0,1.0,1.0,ok
+DNGNFXGW_s022,,The floor could have burned her feet off.,The floor could have burned her feet off.,9,0,9,0,0,0,1.0,1.0,ok
+DNGNFXGW_s023,,"Finally, she reached the treasury.","Finally, she reached the treasury.",7,0,7,0,0,0,1.0,1.0,ok
+DNGNFXGW_s024,,"Her hands gripped the hilt of her sword as she unsheathed it steadily, slowly.","Her hands gripped the hilt of her sword as she unsheathed it steadily, slowly.",16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s025,,She didn' t want to wake the beast.,She didn' t want to wake the beast.,10,0,10,0,0,0,1.0,1.0,ok
+DNGNFXGW_s026,,"She crept carefully across mountains of gold, and rivers of silver.","She crept carefully across mountains of gold, and rivers of silver.",13,0,13,0,0,0,1.0,1.0,ok
+DNGNFXGW_s027,,"Joel did not notice anything monstrous, when a particularly hot breeze caught her.","Joel did not notice anything monsterous, when a particularly hot breeze caught her.",15,1,14,0,0,1,1.0,1.0,ok
+DNGNFXGW_s028,,"She hissed in annoyance, before her heart skipped a beat.","She hissed in annoyance, before her heart skipped a beat.",12,0,12,0,0,0,1.0,1.0,ok
+DNGNFXGW_s029,,There were no windows.,There were no windows.,5,0,5,0,0,0,1.0,1.0,ok
+DNGNFXGW_s030,,"And then, all she heard was the clanging of goblets, the hiss of coins as they slid off the giant dragon.","And then, all she heard was the clanging of goblets, the hiss of coins as they slid off the giant dragon.",24,0,24,0,0,0,1.0,1.0,ok
+DNGNFXGW_s031,,"Joel turned and came face to face with the mighty red lizard, wings spread wide, eyes as fiery as its insides.","Joel turned and came face to face with the mighty red lizard, wings spread wide, eyes as fiery as its insides.",24,0,24,0,0,0,1.0,1.0,ok
+DNGNFXGW_s032,,They locked gaze.,They locked gaze.,4,0,4,0,0,0,1.0,1.0,ok
+DNGNFXGW_s033,,And Joel' s heart exploded.,And Joel' s heart exploded.,7,0,7,0,0,0,1.0,1.0,ok
+DNGNFXGW_s034,,She dashed across the now moving treasure as the dragon shook itself free and took a deep breath.,She dashed across the now moving treasure as the dragon shook itself free and took a deep breath.,19,0,19,0,0,0,1.0,1.0,ok
+DNGNFXGW_s035,,"She ran and ran, until she could see cover.","She ran and ran, until she could see cover.",11,0,11,0,0,0,1.0,1.0,ok
+DNGNFXGW_s036,,THERE!,THERE!,2,0,2,0,0,0,1.0,1.0,ok
+DNGNFXGW_s037,,A pillar stood in the middle of her room.,A pillar stood in the middle of her room.,10,0,10,0,0,0,1.0,1.0,ok
+DNGNFXGW_s038,,"She leaped behind it as soon as the dragon' s breath ignited, flame licking her back.","She leaped behind it as soon an the dragon' s breath ignited, flame licking her back.",19,1,18,0,0,1,1.0,1.0,ok
+DNGNFXGW_s039,,Joel took a deep and steady breath.,Joel took a deep and steady breath.,8,0,8,0,0,0,1.0,1.0,ok
+DNGNFXGW_s040,,"She thought of her village, and Berte, and her parents.","She thought of her village, and Berte, and her parents.",13,0,13,0,0,0,1.0,1.0,ok
+DNGNFXGW_s041,,And she decided to face this beast.,And she decided to face this beast.,8,0,8,0,0,0,1.0,1.0,ok
+DNGNFXGW_s042,,For them.,For them.,3,0,3,0,0,0,1.0,1.0,ok
+DNGNFXGW_s043,,"Gasping for air, she waited until the constant stream of flame stopped, and bolted out from behind the pillar.","Gasping for air, she waited until the constant stream of flame stopped, and bolted out from behind the pillar.",22,0,22,0,0,0,1.0,1.0,ok
+DNGNFXGW_s044,,"The dragon, surprised, took a step back before righting itself and taking a swing with its mighty claws.","The dragon, surprised, took a step back before righting itself and taking a swing with s mighty claws.",21,1,20,0,0,1,1.0,1.0,ok
+DNGNFXGW_s045,,"Joel expertly dodged and rolled away from the attacks, shortening the distance between them.","Joel expertly dodged and rolled away from the attacks, shortening the distance between them.",16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s046,,"Just as the dragon inhaled mightily, Joel clambered up a diamond throne and leaped onto the dragon' s head, sword clasped in both hands.","Just as the dragon inhaled mightily, Joel clambered up a diamond throne and leaped onto the dragon' s head, sword clasped in both hands.",28,0,28,0,0,0,1.0,1.0,ok
+DNGNFXGW_s047,,"She thrust downwards, and the dragon shrieked, and shook.","She thrust downwards, and the dragon shrieked, and shook.",12,0,12,0,0,0,1.0,1.0,ok
+DNGNFXGW_s048,,"Until finally, silence filled the room, and a mighty impact shook the treasure.","Until finally, silence filled the room, and a mighty impact shook the treasure.",16,0,16,0,0,0,1.0,1.0,ok
+DNGNFXGW_s049,,It is done.,It is done.,4,0,4,0,0,0,1.0,1.0,ok
+DNGNFXGW_s050,,"Joel grinned, thrilled and exasperated.","Noel grinned, thrilled and exasperated.",7,1,6,0,0,1,1.0,1.0,ok
+DNGNFXGW_s051,,"She searched the room, and gathered samples of the treasure.","She searched the room, and gathered samples of the treasure.",12,0,12,0,0,0,1.0,1.0,ok
+DNGNFXGW_s052,,"As she happily skipped the way she came, she thought to herself.","As she happily skipped the way she came, she thought to herself.",14,0,14,0,0,0,1.0,1.0,ok
+DNGNFXGW_s053,,We' re going to need more people to collect all this!,We' re going to need more people to collect all this!,13,0,13,0,0,0,1.0,1.0,ok
+DNGNFXGW_s054,,,.. it',4,4,0,0,4,0,,,ok
