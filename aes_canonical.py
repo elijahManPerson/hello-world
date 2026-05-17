@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 from difflib import SequenceMatcher
 
-CANONICAL_VERSION = "aes_canonical_2026-05-17_r3"
+CANONICAL_VERSION = "aes_canonical_2026-05-17_r4"
 
 # ----------------------------------------------------------------------
 # Step 8A. Correction
@@ -767,6 +767,27 @@ def run_step9(df_map, df_texts):
 # Pipeline entry point
 # ----------------------------------------------------------------------
 
+def _refine_capitalisation_taxonomy(df_map):
+    """Re-route sentence-initial capitalisation changes to SentencePunctuation.
+
+    Must run AFTER add_sentence_boundary_flags (Entry 007). At taxonomy
+    build time the boundary layer does not exist yet, so all capitalisation
+    changes were provisionally assigned NounCapitalisation. Now that
+    Sentence Boundaries is populated, any NounCapitalisation token that
+    sits at a Sentence Beginning is re-routed to SentencePunctuation /
+    punctuation / insertion.
+    """
+    df = df_map.copy()
+    sb = df.get("Sentence Boundaries", pd.Series("", index=df.index))
+    is_sent_begin = sb.fillna("").astype(str).str.contains("Sentence Beginning",
+                                                            na=False)
+    mask = (df["error_type"] == "NounCapitalisation") & is_sent_begin
+    df.loc[mask, "broad_category"] = "punctuation"
+    df.loc[mask, "error_type"]     = "SentencePunctuation"
+    df.loc[mask, "error_subtype"]  = "insertion"
+    return df
+
+
 def run_pipeline(df_preprocessed, corrector=mock_corrector,
                  raw_col="Raw text", id_col="ID"):
     df_corr = run_correct_only(df_preprocessed, corrector,
@@ -776,6 +797,7 @@ def run_pipeline(df_preprocessed, corrector=mock_corrector,
     df_map = assign_corr_sentence_ids(df_map)
     df_map = mark_title_and_dialogue(df_map, df_texts)
     df_map = add_sentence_boundary_flags(df_map)
+    df_map = _refine_capitalisation_taxonomy(df_map)   # Entry 007
     df_texts = run_input_quality_gate(df_texts, raw_col=raw_col)
     sent_df = run_step9(df_map, df_texts)
     return {
