@@ -101,6 +101,8 @@ def _rebuild_offsets(text, tokens):
 
 
 def _is_word(tok):
+    if not isinstance(tok, str):
+        return False
     return bool(tok) and bool(_WORD_RX.search(tok))
 
 
@@ -378,7 +380,7 @@ def add_sentence_boundary_flags(df_map):
     df = df.sort_values(["ID", "CorrSentenceID", "_sort"], kind="mergesort")
 
     def first_content_row(g):
-        for idx, tok in zip(g.index, g["corr_token"].astype(str)):
+        for idx, tok in zip(g.index, g["corr_token"].fillna("").astype(str)):
             if tok in OPENING_PUNCT:
                 continue
             if _is_word(tok):
@@ -386,7 +388,7 @@ def add_sentence_boundary_flags(df_map):
         return None
 
     def last_terminal_row(g):
-        toks = g["corr_token"].astype(str).tolist()
+        toks = g["corr_token"].fillna("").astype(str).tolist()
         for pos in range(len(toks) - 1, -1, -1):
             if toks[pos] in TERMINALS:
                 return g.index[pos]
