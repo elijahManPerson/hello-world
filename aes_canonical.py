@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 from difflib import SequenceMatcher
 
-CANONICAL_VERSION = "aes_canonical_2026-05-17_r2"
+CANONICAL_VERSION = "aes_canonical_2026-05-17_r3"
 
 # ----------------------------------------------------------------------
 # Step 8A. Correction
@@ -107,46 +107,72 @@ def _is_word(tok):
 
 
 _UPPER_LOWER_SEAM_RX = re.compile(r'([A-Z]{2,})([a-z])')
-
-
-def _typed_realign(opcodes, raw_tokens, corr_tokens):
-    """Re-examine replace blocks so word<->punct pairings don't cause drift.
-
-    Encodes each token with a 'W' or 'P' type prefix before re-running
-    SequenceMatcher locally, forcing type-consistent pairings.
-    """
-    def _type_prefix(tok):
-        return ("W" if _is_word(tok) else "P") + tok.lower()
-
-    out = []
-    for tag, i1, i2, j1, j2 in opcodes:
-        if tag != "replace":
-            out.append((tag, i1, i2, j1, j2))
-            continue
-        ri = raw_tokens[i1:i2]
-        cj = corr_tokens[j1:j2]
-        # Check for any word<->punct type violation in paired slots
-        m = min(len(ri), len(cj))
-        violation = any(
-            _is_word(ri[k]) != _is_word(cj[k]) for k in range(m)
-        )
-        if not violation:
-            out.append((tag, i1, i2, j1, j2))
-            continue
-        # Re-align this block with type-prefixed tokens
-        sm2 = SequenceMatcher(
-            a=[_type_prefix(t) for t in ri],
-            b=[_type_prefix(t) for t in cj],
-            autojunk=False,
-        )
-        for sub_tag, ai1, ai2, bj1, bj2 in sm2.get_opcodes():
-            out.append((sub_tag, i1 + ai1, i1 + ai2, j1 + bj1, j1 + bj2))
-    return out
+_WORD_PUNCT_PENALTY = 4  # substitution cost for word<->punct mistype
 
 
 def _normalise_raw_spacing(text):
     """Split at uppercase->lowercase seams: 'YAAAYwe' -> 'YAAAY we'."""
     return _UPPER_LOWER_SEAM_RX.sub(r'\1 \2', text)
+
+
+def _align(raw_tokens, corr_tokens):
+    """Type-aware DP aligner that heavily penalises word<->punct substitutions.
+
+    Returns a list of (op, raw_idx_or_None, corr_idx_or_None) individual
+    token-level operations: 'equal', 'replace', 'delete', 'insert'.
+    """
+    n, m = len(raw_tokens), len(corr_tokens)
+
+    def _sub_cost(i, j):
+        rt, ct = raw_tokens[i], corr_tokens[j]
+        if _is_word(rt) != _is_word(ct):
+            return _WORD_PUNCT_PENALTY
+        return 0 if rt.lower() == ct.lower() else 1
+
+    # Build DP cost table.
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    bt = [[0] * (m + 1) for _ in range(n + 1)]   # 0=sub, 1=del, 2=ins
+    for i in range(1, n + 1):
+        dp[i][0] = i
+        bt[i][0] = 1
+    for j in range(1, m + 1):
+        dp[0][j] = j
+        bt[0][j] = 2
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            c_s = dp[i - 1][j - 1] + _sub_cost(i - 1, j - 1)
+            c_d = dp[i - 1][j] + 1
+            c_i = dp[i][j - 1] + 1
+            best = min(c_s, c_d, c_i)
+            dp[i][j] = best
+            bt[i][j] = 0 if best == c_s else (1 if best == c_d else 2)
+
+    # Traceback.
+    ops = []
+    i, j = n, m
+    while i > 0 or j > 0:
+        if i == 0:
+            ops.append(("insert", None, j - 1))
+            j -= 1
+        elif j == 0:
+            ops.append(("delete", i - 1, None))
+            i -= 1
+        elif bt[i][j] == 0:
+            rt, ct = raw_tokens[i - 1], corr_tokens[j - 1]
+            op = ("equal"
+                  if rt.lower() == ct.lower() and _is_word(rt) == _is_word(ct)
+                  else "replace")
+            ops.append((op, i - 1, j - 1))
+            i -= 1
+            j -= 1
+        elif bt[i][j] == 1:
+            ops.append(("delete", i - 1, None))
+            i -= 1
+        else:
+            ops.append(("insert", None, j - 1))
+            j -= 1
+    ops.reverse()
+    return ops
 
 
 def build_word_map(raw_text, corr_text):
@@ -157,72 +183,40 @@ def build_word_map(raw_text, corr_text):
     raw_spans = _rebuild_offsets(raw_text, raw_tokens)
     corr_spans = _rebuild_offsets(corr_text, corr_tokens)
 
-    sm = SequenceMatcher(a=[t.lower() for t in raw_tokens],
-                         b=[t.lower() for t in corr_tokens],
-                         autojunk=False)
     rows = []
-    for tag, i1, i2, j1, j2 in _typed_realign(sm.get_opcodes(),
-                                               raw_tokens, corr_tokens):
-        if tag == "equal":
-            for k in range(i2 - i1):
-                rt, ct = raw_tokens[i1 + k], corr_tokens[j1 + k]
-                rs, re_ = raw_spans[i1 + k]
-                cs, ce = corr_spans[j1 + k]
-                rows.append(dict(raw_index=i1 + k, raw_token=rt, raw_start=rs,
-                                 raw_end=re_, corr_index=j1 + k, corr_token=ct,
-                                 corr_start=cs, corr_end=ce, op="equal",
-                                 equal_ci=(rt == ct), error_type="Equal"))
-        elif tag == "replace":
-            m = min(i2 - i1, j2 - j1)
-            for k in range(m):
-                rt, ct = raw_tokens[i1 + k], corr_tokens[j1 + k]
-                rs, re_ = raw_spans[i1 + k]
-                cs, ce = corr_spans[j1 + k]
-                err = ("Spelling" if (rt.lower() != ct.lower()
-                       and rt.isalpha() and ct.isalpha()) else "Replacement")
-                rows.append(dict(raw_index=i1 + k, raw_token=rt, raw_start=rs,
-                                 raw_end=re_, corr_index=j1 + k, corr_token=ct,
-                                 corr_start=cs, corr_end=ce, op="replace",
-                                 equal_ci=(rt.lower() == ct.lower()),
-                                 error_type=err))
-            for k in range(i1 + m, i2):
-                rt = raw_tokens[k]
-                rs, re_ = raw_spans[k]
-                rows.append(dict(raw_index=k, raw_token=rt, raw_start=rs,
-                                 raw_end=re_, corr_index=None, corr_token=None,
-                                 corr_start=None, corr_end=None, op="delete",
-                                 equal_ci=False,
-                                 error_type=("PunctuationDeletion"
-                                             if not _is_word(rt) else "Deletion")))
-            for k in range(j1 + m, j2):
-                ct = corr_tokens[k]
-                cs, ce = corr_spans[k]
-                rows.append(dict(raw_index=None, raw_token=None, raw_start=None,
-                                 raw_end=None, corr_index=k, corr_token=ct,
-                                 corr_start=cs, corr_end=ce, op="insert",
-                                 equal_ci=False,
-                                 error_type=("PunctuationInsertion"
-                                             if not _is_word(ct) else "Insertion")))
-        elif tag == "delete":
-            for k in range(i1, i2):
-                rt = raw_tokens[k]
-                rs, re_ = raw_spans[k]
-                rows.append(dict(raw_index=k, raw_token=rt, raw_start=rs,
-                                 raw_end=re_, corr_index=None, corr_token=None,
-                                 corr_start=None, corr_end=None, op="delete",
-                                 equal_ci=False,
-                                 error_type=("PunctuationDeletion"
-                                             if not _is_word(rt) else "Deletion")))
-        elif tag == "insert":
-            for k in range(j1, j2):
-                ct = corr_tokens[k]
-                cs, ce = corr_spans[k]
-                rows.append(dict(raw_index=None, raw_token=None, raw_start=None,
-                                 raw_end=None, corr_index=k, corr_token=ct,
-                                 corr_start=cs, corr_end=ce, op="insert",
-                                 equal_ci=False,
-                                 error_type=("PunctuationInsertion"
-                                             if not _is_word(ct) else "Insertion")))
+    for op, ri, ci in _align(raw_tokens, corr_tokens):
+        rt = raw_tokens[ri] if ri is not None else None
+        ct = corr_tokens[ci] if ci is not None else None
+        rs, re_ = raw_spans[ri] if ri is not None else (None, None)
+        cs, ce  = corr_spans[ci] if ci is not None else (None, None)
+
+        if op == "equal":
+            rows.append(dict(raw_index=ri, raw_token=rt, raw_start=rs,
+                             raw_end=re_, corr_index=ci, corr_token=ct,
+                             corr_start=cs, corr_end=ce, op="equal",
+                             equal_ci=(rt == ct), error_type="Equal"))
+        elif op == "replace":
+            err = ("Spelling" if rt.isalpha() and ct.isalpha()
+                               and rt.lower() != ct.lower() else "Replacement")
+            rows.append(dict(raw_index=ri, raw_token=rt, raw_start=rs,
+                             raw_end=re_, corr_index=ci, corr_token=ct,
+                             corr_start=cs, corr_end=ce, op="replace",
+                             equal_ci=(rt.lower() == ct.lower()),
+                             error_type=err))
+        elif op == "delete":
+            rows.append(dict(raw_index=ri, raw_token=rt, raw_start=rs,
+                             raw_end=re_, corr_index=None, corr_token=None,
+                             corr_start=None, corr_end=None, op="delete",
+                             equal_ci=False,
+                             error_type=("PunctuationDeletion"
+                                         if not _is_word(rt) else "Deletion")))
+        else:  # insert
+            rows.append(dict(raw_index=None, raw_token=None, raw_start=None,
+                             raw_end=None, corr_index=ci, corr_token=ct,
+                             corr_start=cs, corr_end=ce, op="insert",
+                             equal_ci=False,
+                             error_type=("PunctuationInsertion"
+                                         if not _is_word(ct) else "Insertion")))
     return rows
 
 
