@@ -83,7 +83,10 @@ _WORD_RX = re.compile(r"\w", flags=re.UNICODE)
 
 
 def _simple_tokenize(s):
-    return re.findall(r"\w+|\.\.\.|[^\w\s]", s or "", flags=re.UNICODE)
+    # Numerals (including decimal/thousands separators) are parsed as a single
+    # token so that number-internal "." and "," never become potential sentence
+    # boundaries.  The numeral pattern must precede \w+ to take priority.
+    return re.findall(r"\d+(?:[.,]\d+)*(?!\w)|\w+|\.\.\.|[^\w\s]", s or "", flags=re.UNICODE)
 
 
 def _rebuild_offsets(text, tokens):
