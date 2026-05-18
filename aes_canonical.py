@@ -692,8 +692,7 @@ def assess_input_quality(raw_text):
 
     if not reasons:
         return "ok", []
-    hard = any("prompt instruction" in r or "low alphabetic" in r
-               for r in reasons)
+    hard = any("low alphabetic" in r for r in reasons)
     return ("quarantine" if hard else "review"), reasons
 
 
