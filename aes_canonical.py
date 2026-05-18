@@ -83,7 +83,7 @@ _WORD_RX = re.compile(r"\w", flags=re.UNICODE)
 
 
 def _simple_tokenize(s):
-    return re.findall(r"\w+|[^\w\s]", s or "", flags=re.UNICODE)
+    return re.findall(r"\w+|\.\.\.|[^\w\s]", s or "", flags=re.UNICODE)
 
 
 def _rebuild_offsets(text, tokens):
@@ -412,6 +412,20 @@ _FORMULAIC_ENDING_RX = re.compile(
     r"^(the\s+end|to\s+be\s+continued|fin\.?|the\s+end\.)$", re.I)
 
 
+def _is_cutoff(tokens):
+    """True if this final fragment is a cut-off: 0 word tokens, or exactly
+    1 word token with no terminal punctuation.  Single-word/pure-punctuation
+    trailing fragments are not sentence attempts and must not be scored."""
+    str_toks = [t for t in tokens if isinstance(t, str) and t]
+    words = [t for t in str_toks if _is_word(t)]
+    has_terminal = any(t in TERMINALS for t in str_toks)
+    if len(words) == 0:
+        return True
+    if len(words) == 1 and not has_terminal:
+        return True
+    return False
+
+
 def _score_artifact(tokens, position):
     """Score a sentence's tokens for title/ending likelihood.
 
@@ -518,6 +532,11 @@ def mark_title_and_dialogue(df_map, df_texts):
             if grp["TextualArtifact"].any():
                 continue
             toks = grp["corr_token"].fillna("").astype(str).tolist()
+            # CUTOFF check (last position only): 0-word or 1-word fragment
+            # with no terminal punctuation is excluded, not scored.
+            if position == "last" and _is_cutoff(toks):
+                g.loc[grp.index, "TextualArtifact"] = "CUTOFF"
+                continue
             artifact_type, _ = _score_artifact(toks, position)
             if artifact_type:
                 g.loc[grp.index, "TextualArtifact"] = artifact_type
