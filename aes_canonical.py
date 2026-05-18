@@ -80,6 +80,26 @@ def run_correct_only(df_in, corrector, text_col="Raw text", id_col="ID",
 # ----------------------------------------------------------------------
 
 _WORD_RX = re.compile(r"\w", flags=re.UNICODE)
+_VOWELS = frozenset("aeiouAEIOUyY")  # y/Y acts as vowel in "types", "gym", etc.
+_ORDINAL_RX = re.compile(r"^\d+(?:st|nd|rd|th)$", re.I)
+_DECADE_RX  = re.compile(r"^\d{4}s$", re.I)
+
+
+def _is_gibberish(tok):
+    """Return True for non-comprehensible tokens where no reasonable word
+    can be inferred:
+      - mixed alphanumeric that is not an ordinal (19th) or decade (1980s)
+      - pure-alphabetic string longer than 3 chars with no vowels
+    jiopjikop-style tokens (vowels present) are NOT caught — no dictionary."""
+    if not isinstance(tok, str) or not tok:
+        return False
+    has_alpha = bool(re.search(r"[a-zA-Z]", tok))
+    has_digit = bool(re.search(r"\d", tok))
+    if has_alpha and has_digit:
+        return not (_ORDINAL_RX.match(tok) or _DECADE_RX.match(tok))
+    if has_alpha and not has_digit:
+        return len(tok) > 3 and not any(c in _VOWELS for c in tok)
+    return False
 
 
 def _simple_tokenize(s):
@@ -243,6 +263,10 @@ def _taxonomy_row(row):
 
     rt_str = str(rt) if rt is not None else ""
     ct_str = str(ct) if ct is not None else ""
+
+    # Fix 4: gibberish raw token — comprehensible word absent, loss = SS/deletion.
+    if _is_gibberish(rt_str):
+        return "word", "SentenceStructure", "deletion"
 
     is_raw_word = _is_word(rt_str)
     is_corr_word = _is_word(ct_str)
