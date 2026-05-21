@@ -1,4 +1,24 @@
-"""\nmech_v2.py\n==========\nAdditive layer on top of aes_canonical.  It does NOT modify your original\nfile.  It does three things:\n\n  1. Fixes the tokeniser so contractions (\"don't\", \"Let's\") stay one token.\n  2. Teaches the sentence splitter that straight double quotes are quotes,\n     so dialogue stops fragmenting.\n  3. Adds the agreed schema: a token broad category + subcategory, plus the\n     twelve columns (4 families x error / subtype / class).\n\nCheap, reliable columns are filled here with pandas only.  The two columns\nthat need a part-of-speech / grammar engine are written as the literal\nstring ENGINE so it is obvious they are deliberately deferred, not missing:\n  - broad subcategory for word / contraction rows (the word class)\n  - Sentence structure class (the grammatical subtype)\n\nRun validate_on_r5() to see before/after on the saved r5 corrected text\nWITHOUT calling any API.\n"""
+"""
+mech_v2.py
+==========
+Additive layer on top of aes_canonical.  It does NOT modify your original
+file.  It does three things:
+
+  1. Fixes the tokeniser so contractions ("don't", "Let's") stay one token.
+  2. Teaches the sentence splitter that straight double quotes are quotes,
+     so dialogue stops fragmenting.
+  3. Adds the agreed schema: a token broad category + subcategory, plus the
+     twelve columns (4 families x error / subtype / class).
+
+Cheap, reliable columns are filled here with pandas only.  The two columns
+that need a part-of-speech / grammar engine are written as the literal
+string ENGINE so it is obvious they are deliberately deferred, not missing:
+  - broad subcategory for word / contraction rows (the word class)
+  - Sentence structure class (the grammatical subtype)
+
+Run validate_on_r5() to see before/after on the saved r5 corrected text
+WITHOUT calling any API.
+"""
 
 import re
 import pandas as pd
@@ -1231,8 +1251,13 @@ def inject_paragraph_breaks(df_map, texts, id_col="Research ID",
                         prev_ap = pd.to_numeric(pd.Series([rows[-1].get("_ap")]), errors="coerce").iloc[0] if rows else None
                         if pd.notna(prev_ap):
                             blank["_ap"] = prev_ap + 0.5
-                except Exception:
-                    pass
+                except Exception as exc:
+                    import warnings
+                    warnings.warn(
+                        f"_ap interpolation failed for {ID} "
+                        f"at raw_start={r_start}: {exc}",
+                        stacklevel=2,
+                    )
             for b in ("TITLE", "DIALOGUE"):
                 if b in g.columns:
                     blank[b] = False

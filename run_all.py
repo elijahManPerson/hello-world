@@ -67,12 +67,35 @@ CONFIG = {
 def _join_difficulty(wm, lexicon_path):
     if not lexicon_path or not os.path.exists(lexicon_path):
         return wm
-    lex = pd.read_csv(lexicon_path, keep_default_na=False)
-    lex = lex[lex["DifficultyCategory"] != ""]        # exclude set-aside rows
+    lex = pd.read_csv(lexicon_path, keep_default_na=False, low_memory=False)
+
+    # Support both old format (DifficultyCategory + Confidence) and
+    # the revised format (Revised Category, with Confidence derived from Changed).
+    if "DifficultyCategory" in lex.columns:
+        cat_col = "DifficultyCategory"
+        exclude_vals = {"", "classification"}
+    elif "Revised Category" in lex.columns:
+        cat_col = "Revised Category"
+        exclude_vals = {"", "classification"}   # "word" row is a metadata artifact
+    else:
+        print("  [difficulty] unrecognised lexicon format — skipping join")
+        return wm
+
+    lex = lex[~lex[cat_col].isin(exclude_vals)]
+
+    if "Confidence" in lex.columns:
+        conf_col = "Confidence"
+    else:
+        # Derive from Changed: no → trusted, YES → reviewed, NEW → inferred
+        _cmap = {"no": "trusted", "YES": "reviewed", "NEW": "inferred"}
+        lex = lex.copy()
+        lex["_conf"] = lex["Changed"].map(_cmap).fillna("inferred")
+        conf_col = "_conf"
+
     lex["_key"] = lex["Word"].str.lower().str.strip()
     lex = lex.drop_duplicates("_key", keep="first")
-    cat_map  = lex.set_index("_key")["DifficultyCategory"]
-    conf_map = lex.set_index("_key")["Confidence"]
+    cat_map  = lex.set_index("_key")[cat_col]
+    conf_map = lex.set_index("_key")[conf_col]
 
     df = wm.copy()
     df["SpellDifficulty"] = "NA"
@@ -191,9 +214,20 @@ def main(cfg=CONFIG):
         print("Concern 1 stage done"
               + (" (MOCK)" if cfg["stage_concern1"] == "mock" else ""))
 
+    # Patch Concern1 from the final texts df back into sentences so that
+    # sentences.csv reflects real values rather than the TBD(engine) placeholder
+    # written by classify_scripts inside run_sentence_layer.
+    # Concern1 is advisory and never feeds any score; this is display-only.
+    if "Concern1" in df.columns:
+        _c1_map  = df.set_index(cfg["id_col"])["Concern1"].to_dict()
+        _c1r_map = df.set_index(cfg["id_col"]).get("Concern1Reason",
+                                                    pd.Series(dtype=str)).to_dict()
+        sent["Concern1"] = sent["Identifier"].map(_c1_map).fillna("NA")
+        sent["Concern1Reason"] = sent["Identifier"].map(_c1r_map).fillna("NA")
+
     # --- Save ---
     o = cfg["out_dir"]
-    wm.to_csv(f"{o}/word_map.csv", index=False)
+    wm.drop(columns=["_ap"], errors="ignore").to_csv(f"{o}/word_map.csv", index=False)
     sent.to_csv(f"{o}/sentences.csv", index=False)
     df.to_csv(f"{o}/texts.csv", index=False)
     print(f"\nSaved word_map.csv, sentences.csv, texts.csv to {o}")

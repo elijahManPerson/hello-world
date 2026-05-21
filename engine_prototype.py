@@ -1,4 +1,26 @@
-"""\nengine_prototype.py\n===================\nFills the two deferred columns:\n  - TokenSubcat   (word class for word/contraction rows)\n  - SS class      (grammatical subtype of sentence-structure errors)\n\nTwo interchangeable engines, same input and output, so you can run both on\nthe same scripts and compare. Neither runs in the build sandbox (no API,\nno internet); both are written to run in your Colab / machine.\n\n  fill_with_claude(df, model=\"claude-haiku-4-5-20251001\")\n  fill_with_spacy(df)                      # free, local, needs: pip install spacy + model\n\nBoth accept mock=True to show the wiring and the exact prompt/IO with no\ncost and no install, so you can sanity-check the plumbing first.\n\nCost shape (Haiku-class, your r5 corpus): only the ~350 real edits per run\nare sent for SS-class, not all 6,000 tokens. Word class is done locally by\nspaCy for free. That keeps the API spend a rounding error next to the\ncorrection call you already pay for. Confirm live rates at the Anthropic\npricing page.\n"""
+"""
+engine_prototype.py
+===================
+Fills the two deferred columns:
+  - TokenSubcat   (word class for word/contraction rows)
+  - SS class      (grammatical subtype of sentence-structure errors)
+
+Two interchangeable engines, same input and output, so you can run both on
+the same scripts and compare. Neither runs in the build sandbox (no API,
+no internet); both are written to run in your Colab / machine.
+
+  fill_with_claude(df, model="claude-haiku-4-5-20251001")
+  fill_with_spacy(df)                      # free, local, needs: pip install spacy + model
+
+Both accept mock=True to show the wiring and the exact prompt/IO with no
+cost and no install, so you can sanity-check the plumbing first.
+
+Cost shape (Haiku-class, your r5 corpus): only the ~350 real edits per run
+are sent for SS-class, not all 6,000 tokens. Word class is done locally by
+spaCy for free. That keeps the API spend a rounding error next to the
+correction call you already pay for. Confirm live rates at the Anthropic
+pricing page.
+"""
 
 import json, re
 
@@ -191,22 +213,22 @@ def fill_with_spacy(df, mock=False):
 _WORDCLASS_SYSTEM = """\
 Classify each token's word class.
 
-\"c\" must be exactly one of:
+"c" must be exactly one of:
   noun, proper noun, verb, auxiliary verb, adjective, adverb,
   pronoun, determiner, preposition, coordinating conjunction,
   subordinating conjunction, numeral, interjection, other.
 
 Hard cases:
-  \"to\" before a verb → other (infinitive marker, not preposition)
-  \"to\" before a noun/pronoun → preposition
+  "to" before a verb → other (infinitive marker, not preposition)
+  "to" before a noun/pronoun → preposition
   Lowercased proper nouns (character names, place names) → proper noun
-  \"but\" joining two clauses → coordinating conjunction
-  \"but\" meaning \"only/except\" → preposition
-  \"as\" introducing a clause → subordinating conjunction
-  \"as\" meaning \"in the role of\" → preposition
+  "but" joining two clauses → coordinating conjunction
+  "but" meaning "only/except" → preposition
+  "as" introducing a clause → subordinating conjunction
+  "as" meaning "in the role of" → preposition
 
 Return a JSON array, one object per input item, order preserved:
-  [{\"id\": <integer>, \"c\": \"<word class>\"}, ...]
+  [{"id": <integer>, "c": "<word class>"}, ...]
 No prose, no markdown fences."""
 
 _VALID_WORDCLASS = set(_SPACY_POS.values()) | {"other"}
@@ -245,7 +267,8 @@ def fill_wordclass_with_claude(df, texts=None,
 
     for sid, g in df.groupby("Identifier", sort=False):
         idxs = [i for i in g.index
-                if df.loc[i, "TokenCategory"] in ("word", "contraction")]
+                if df.loc[i, "TokenCategory"] in ("word", "contraction")
+                and df.loc[i, "TokenSubcat"] == ENGINE]
         if not idxs:
             continue
 
@@ -385,7 +408,15 @@ def fill_sentence_engine(sent_df, model="claude-sonnet-4-6",
         items, refs, _ = _sentence_items(g)
         if not items:
             continue
-        script_text = " ".join(i["sentence"] for i in items)
+        # Build context from ALL non-artifact sentences so the model sees the
+        # full script (including title, ending) when judging pronoun reference.
+        # Only ENGINE-type sentences are sent for classification (items/refs).
+        script_text = " ".join(
+            str(r["CorrectedSentence"])
+            for _, r in g.sort_values("SentenceRef").iterrows()
+            if str(r.get("TextualArtifact", "")) == ""
+            and str(r.get("CorrectedSentence", "")).strip()
+        )
 
         if mock:
             print(f"MOCK script {ident}: {len(items)} sentences would be "
