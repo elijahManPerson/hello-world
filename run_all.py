@@ -106,7 +106,10 @@ def _join_difficulty(wm, lexicon_path):
             .str.lower()
             .str.replace(r"[^a-z]", "", regex=True))
     df.loc[wordish, "SpellDifficulty"] = keys.map(cat_map).fillna("NA").values
-    df.loc[wordish, "SpellDifficultyConfidence"] = keys.map(conf_map).fillna("NA").values
+    # conf_map may be numeric (v6 float) or string ("trusted"/"reviewed"/…);
+    # normalise to string so the column dtype stays consistent.
+    conf_vals = keys.map(conf_map).fillna("NA").astype(str).replace("nan", "NA")
+    df.loc[wordish, "SpellDifficultyConfidence"] = conf_vals.values
     return df
 
 
