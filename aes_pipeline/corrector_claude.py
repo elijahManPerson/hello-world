@@ -45,7 +45,7 @@ Your task is to lightly correct the student's raw text. Apply ONLY these correct
 - Fix punctuation, INCLUDING ensuring every sentence and fragment ends with a
   terminal mark (. ? or !)
 
-SENTENCE BOUNDARIES — IMPORTANT:
+SENTENCE BOUNDARIES -- IMPORTANT:
 - Every complete sentence and every fragment must end with a terminal mark.
 - If the student has run two or more sentences together with no punctuation
   between them (a fused run-on), insert full stops to separate them into
