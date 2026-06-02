@@ -31,18 +31,10 @@ import pandas as pd, numpy as np
 CRITERIA = ['AU','TS','ID','CS/PD','Voc','Coh','Pa','SS','Pun','Spell']
 MAXSCORE = {'AU':6,'TS':4,'ID':5,'CS/PD':4,'Voc':5,'Coh':4,'Pa':2,'SS':6,'Pun':5,'Spell':6}
 
-# ----------------------------------------------------------------------------
-# HOW TO READ THE MACHINE SCORE FOR EACH CRITERION FROM THE RUN OUTPUT.
-# Each entry is one of:
-#   ('col', 'ColumnName')                          use that column directly as the score
-#   ('map', 'ColumnName', {category: score, ...})  map a text category to a score  (PROVISIONAL)
-#   ('gate','BandCol','GateFlagCol')               use band, +1 if the gate flag is truthy
-# Set the '<SET ME>' entries to your pipeline's final-score columns, then rerun.
-# ----------------------------------------------------------------------------
 PRED = {
     'AU':    ('col', 'AudienceBand'),
-    'TS':    ('map', 'TextStructure', {'none':0,'minimal':1,'weak':2,'present':3,'effective':4}),   # PROVISIONAL
-    'ID':    ('map', 'Ideas', {'none':0,'minimal':1,'simple':2,'substantial':3,'coherent':4,'crafted':5}), # PROVISIONAL
+    'TS':    ('map', 'TextStructure', {'none':0,'minimal':1,'weak':2,'present':3,'effective':4}),
+    'ID':    ('map', 'Ideas', {'none':0,'minimal':1,'simple':2,'substantial':3,'coherent':4,'crafted':5}),
     'CS/PD': ('fn',  'cspd'),
     'Voc':   ('gate','Voc_Band','Voc_Band5Candidate'),
     'Coh':   ('gate','Coh_Band','Coh_Band4Candidate'),
@@ -57,18 +49,17 @@ _CAT = {'none':0,'named':1,'suggestion':2,'emerges':3,'effective':4}
 def _fn_cspd(row):
     ca = _CAT.get(str(row.get('CharacterAnalysis','')).lower().strip(), None)
     sa = _CAT.get(str(row.get('SettingAnalysis','')).lower().strip(), None)
-    if ca is None and sa is None: return None   # TB2 failed for this script
+    if ca is None and sa is None: return None
     ca = ca or 0; sa = sa or 0
     return max(ca, sa)
 
 def _fn_ss(row):
     cnt = float(row.get('SS_AssessableCount') or 0)
     if cnt == 0: return 0
-    pct  = float(row.get('SS_CorrectPct') or 0)
+    pct   = float(row.get('SS_CorrectPct') or 0)
     types = int(row.get('SS_DistinctTypesUsed') or 0)
     cx_c  = int(row.get('SS_Complex_Correct') or 0)
     proj  = int(row.get('SS_ProjectedCount') or 0)
-    # Cap by sentence count — can't demonstrate variety on tiny scripts
     if cnt <= 3:  cap = 2
     elif cnt <= 6:  cap = 3
     elif cnt <= 15: cap = 4
@@ -144,12 +135,10 @@ def machine_score(row, spec):
     if kind == 'fn':
         fn = _FN_MAP.get(spec[1])
         if fn is None: return None
-        result = fn(row)
-        return result   # may be None if TB2 failed
+        return fn(row)
     return None
 
 def qwk(y_true, y_pred, max_score):
-    # quadratic weighted kappa, the standard agreement measure for ordinal AES scores
     y_true = np.asarray(y_true,int); y_pred = np.asarray(y_pred,int)
     N = max_score + 1
     O = np.zeros((N,N))
@@ -188,7 +177,6 @@ def main():
     skipped = []
     for crit in CRITERIA:
         spec = PRED[crit]
-        # detect unset / missing machine column
         needed = spec[1]
         if spec[0] in ('col','map') and needed not in run.columns:
             skipped.append((crit, needed)); continue
@@ -201,7 +189,7 @@ def main():
             m = machine_score(run.loc[sid], spec)
             e = gold.loc[sid, crit]
             if m is None or pd.isna(e): continue
-            m = max(0, min(MAXSCORE[crit], int(m)))   # clamp into valid range
+            m = max(0, min(MAXSCORE[crit], int(m)))
             e = int(e)
             ms.append(m); es.append(e)
             if abs(m-e) >= 2:

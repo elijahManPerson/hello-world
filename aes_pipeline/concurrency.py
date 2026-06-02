@@ -18,21 +18,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def parallel_map(items, fn, workers=8, label=None):
-    """Apply fn to each item concurrently and return results in the
-    same order as items. fn should take one item and return a result;
-    exceptions in fn propagate per-item but do not crash the whole
-    pool — the offending item gets the exception object as its result
-    so the caller can decide what to do.
-
-    Args:
-        items: a sequence (list, Series, anything iterable + indexable)
-        fn:    a single-arg callable
-        workers: max concurrent threads (default 8)
-        label: optional string for progress prints
-
-    Returns:
-        list of results in the same order as items, with Exception
-        objects for any items whose fn call raised."""
     items = list(items)
     results = [None] * len(items)
     if not items:
