@@ -135,6 +135,21 @@ the boss; the total predictor is only a sanity check.*
 | `engine.py` | `predict_criteria`, `assess_scores`. |
 | `crossval.py` | `cross_validate`, `audit_fit`, CSV loading. |
 | `cli.py` | `python -m criteria_engine` entry point. |
+| `keras_backend.py` | Optional: score with the trained `model_*.keras` models (needs a saved TF-IDF vectorizer — see file header). |
+| `llm_backend.py` | PREP scaffold for LLM scoring (Mode 3); see `LLM_INTEGRATION.md`. |
+
+## Backends & validation
+
+- **Validation on real data:** `examples/validate_drive_csv.py <csv>` runs
+  `cross_validate` + `audit_fit` against a gold-scored CSV. Results on 21 real
+  scripts are in `VALIDATION.md` (text prior: total r ≈ 0.95; weak on Voc/Pun;
+  fit layer: 0 false hard-rule fires).
+- **Keras backend:** `KerasCriterionScorer` reconstructs the notebook's exact
+  feature pipeline and feeds the fit layer. Requires a saved `tfidf_vectorizer.pkl`
+  (the original run saved only the scaler) — the notebook now has a cell to save it.
+- **LLM backend (prep):** `LLMScorer` + `JsonlCache` match the existing
+  `aes_precision_cache.jsonl` shape; implement one method (`_call_model`) to go
+  live. See `LLM_INTEGRATION.md`.
 
 ## Tests
 

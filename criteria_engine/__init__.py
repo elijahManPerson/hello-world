@@ -35,6 +35,13 @@ from .priors import (
 from .fit import assess_criterion_fit, FitReport, SUSPICIOUS_RULES
 from .engine import predict_criteria, assess_scores
 from .crossval import cross_validate, audit_fit, load_csv
+from .llm_backend import (
+    LLMScorer,
+    JsonlCache,
+    EvidenceUnit,
+    build_rubric_prompt,
+)
+from .keras_backend import KerasCriterionScorer
 
 __all__ = [
     "CRITERIA", "RANGES", "TOTAL_MAX", "RANGE_LABELS", "FAMILIES",
@@ -44,6 +51,8 @@ __all__ = [
     "assess_criterion_fit", "FitReport", "SUSPICIOUS_RULES",
     "predict_criteria", "assess_scores",
     "cross_validate", "audit_fit", "load_csv",
+    "LLMScorer", "JsonlCache", "EvidenceUnit", "build_rubric_prompt",
+    "KerasCriterionScorer",
 ]
 
 __version__ = "0.1.0"
