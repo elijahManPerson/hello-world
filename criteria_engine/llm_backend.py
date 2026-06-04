@@ -1,23 +1,27 @@
-"""Claude (Haiku) scoring backend — produces a mark for a script.
+"""Claude scoring backend — produces a mark for a script.
 
-The production path (Mode 3): Claude Haiku reads a script and returns
-per-criterion scores + evidence, which the engine sums to a tentative total
-(the mark) and runs through the fit layer. "Trained on the data" here means
-**in-context calibration**: a sample of the human-marked gold scripts is
-embedded in a cached system prompt as exemplars, so Haiku scores consistently
-with the gold marks.
+The production path (Mode 3): Claude reads a script and returns per-criterion
+scores + evidence, which the engine sums to a tentative total (the mark) and
+runs through the fit layer.
 
-Why Haiku, and how this is wired (per the Claude API skill):
-  * model: ``claude-haiku-4-5`` (the user asked for Haiku).
+"Trained on the data" is achieved two ways (you cannot fine-tune Claude itself):
+  * **in-context calibration** — a sample of the human-marked gold scripts is
+    embedded in a cached system prompt as exemplars (see ``load_gold_exemplars``);
+  * **a calibration layer** — a :class:`~criteria_engine.calibration.GoldCalibrator`
+    fit on your gold marks, passed as ``calibrator=`` and applied to the model's
+    scores in :meth:`predict`.
+
+How it's wired (per the Claude API skill):
+  * model: ``claude-sonnet-4-6`` by default (``SonnetScorer``); ``HaikuScorer``
+    pins Haiku 4.5. The model is configurable via ``model=``.
   * structured outputs: each criterion is constrained to its exact integer
     range via a json_schema ``enum``, so the model cannot return an out-of-range
     or non-integer score.
-  * prompt caching: the rubric + exemplars are a large, stable prefix carried in
+  * prompt caching: the rubric + exemplars are a stable prefix carried in
     ``system`` with a ``cache_control`` breakpoint; the per-script text is the
-    volatile suffix. Once exemplars are loaded the prefix exceeds the cache
-    minimum, so repeated scoring reads the cache (~0.1x input cost).
-  * thinking is left OFF — Haiku 4.5 does not take the adaptive-thinking /
-    effort parameters that the Opus/Sonnet 4.6+ models do.
+    volatile suffix (~0.1x input cost on cache reads).
+  * adaptive thinking is enabled on the models that support it (Sonnet 4.6 /
+    Opus 4.x) and off on Haiku 4.5, which doesn't take the parameter.
 
 The Anthropic SDK is imported lazily, so the core engine stays dependency-free.
 Install with ``pip install anthropic`` to use this backend.
@@ -41,7 +45,12 @@ from .priors import BAND_PROFILE, total_band
 from .engine import predict_criteria
 
 CACHE_VERSION = "criterion_scores_v1"
-DEFAULT_MODEL = "claude-haiku-4-5"
+DEFAULT_MODEL = "claude-sonnet-4-6"
+
+
+def _supports_thinking(model: str) -> bool:
+    """Adaptive thinking is available on Sonnet 4.6 and the Opus 4.x models."""
+    return "sonnet-4-6" in model or "opus-4" in model
 
 
 # --- Structured-output schema --------------------------------------------
@@ -244,10 +253,12 @@ class LLMScorer(abc.ABC):
         model: str = DEFAULT_MODEL,
         cache: JsonlCache | None = None,
         exemplars: list[dict] | None = None,
+        calibrator=None,
     ):
         self.model = model
         self.cache = cache
         self.exemplars = exemplars
+        self.calibrator = calibrator  # optional GoldCalibrator trained on gold
         self._system = build_rubric_system_prompt(exemplars)
 
     @abc.abstractmethod
@@ -276,26 +287,29 @@ class LLMScorer(abc.ABC):
         """Score with the LLM, then run the fit layer; returns the full result
         including ``tentative_total`` (the mark)."""
         pred = self.score(text, year_level=year_level)
+        scores = self.calibrator.apply(pred.scores) if self.calibrator else pred.scores
         return predict_criteria(
             text=text,
             year_level=year_level,
-            criterion_scores=pred.scores,
+            criterion_scores=scores,
             evidence=pred.evidence,
             **kwargs,
         )
 
 
 class ClaudeScorer(LLMScorer):
-    """Concrete scorer calling Claude (defaults to Haiku 4.5).
+    """Concrete scorer calling Claude (defaults to Sonnet 4.6).
 
     Example
     -------
         from criteria_engine.llm_backend import ClaudeScorer, JsonlCache, load_gold_exemplars
+        from criteria_engine.calibration import GoldCalibrator
 
-        exemplars = load_gold_exemplars("gold_clean_365_with_year_proxy.csv")
+        exemplars = load_gold_exemplars("gold_clean_365_with_year_proxy.csv", per_band=3)
         scorer = ClaudeScorer(
             exemplars=exemplars,
-            cache=JsonlCache("aes_haiku_cache.jsonl"),
+            calibrator=GoldCalibrator.load("calibrator.json"),  # trained on gold
+            cache=JsonlCache("aes_sonnet_cache.jsonl"),
         )
         result = scorer.predict(my_script)   # result["tentative_total"] is the mark
     """
@@ -306,12 +320,17 @@ class ClaudeScorer(LLMScorer):
         model: str = DEFAULT_MODEL,
         cache: JsonlCache | None = None,
         exemplars: list[dict] | None = None,
+        calibrator=None,
         client=None,
         max_tokens: int = 4096,
+        use_thinking: bool | None = None,
     ):
-        super().__init__(model=model, cache=cache, exemplars=exemplars)
+        super().__init__(model=model, cache=cache, exemplars=exemplars, calibrator=calibrator)
         self._client = client
         self.max_tokens = max_tokens
+        # Adaptive thinking on the models that support it (Sonnet 4.6 / Opus 4.x),
+        # off on Haiku 4.5 which doesn't take the parameter.
+        self.use_thinking = _supports_thinking(model) if use_thinking is None else use_thinking
         if cache is not None:
             cache.model = model  # keep cache key model in sync
 
@@ -323,7 +342,7 @@ class ClaudeScorer(LLMScorer):
 
     def _call_model(self, system: str, user: str) -> dict:
         client = self._get_client()
-        resp = client.messages.create(
+        kwargs = dict(
             model=self.model,
             max_tokens=self.max_tokens,
             # Stable rubric + exemplars cached; the script (in `user`) is volatile.
@@ -336,12 +355,27 @@ class ClaudeScorer(LLMScorer):
             # Structured outputs: schema-valid, in-range integer scores.
             output_config={"format": {"type": "json_schema", "schema": RESPONSE_SCHEMA}},
         )
+        if self.use_thinking:
+            kwargs["thinking"] = {"type": "adaptive"}
+        resp = client.messages.create(**kwargs)
         text = next(b.text for b in resp.content if b.type == "text")
         return json.loads(text)
 
 
-# Convenience alias for the requested configuration.
-HaikuScorer = ClaudeScorer
+class SonnetScorer(ClaudeScorer):
+    """ClaudeScorer pinned to Sonnet 4.6 (adaptive thinking on)."""
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("model", "claude-sonnet-4-6")
+        super().__init__(**kwargs)
+
+
+class HaikuScorer(ClaudeScorer):
+    """ClaudeScorer pinned to Haiku 4.5 (thinking off)."""
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("model", "claude-haiku-4-5")
+        super().__init__(**kwargs)
 
 
 def _to_prediction(raw: dict) -> CriterionPrediction:

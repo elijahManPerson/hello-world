@@ -136,7 +136,8 @@ the boss; the total predictor is only a sanity check.*
 | `crossval.py` | `cross_validate`, `audit_fit`, CSV loading. |
 | `cli.py` | `python -m criteria_engine` entry point. |
 | `keras_backend.py` | Optional: score with the trained `model_*.keras` models (needs a saved TF-IDF vectorizer — see file header). |
-| `llm_backend.py` | Claude **Haiku** scorer (Mode 3) — produces the mark; see `LLM_INTEGRATION.md`. |
+| `llm_backend.py` | Claude scorer (Mode 3, **Sonnet** default) — produces the mark; see `LLM_INTEGRATION.md`. |
+| `calibration.py` | `GoldCalibrator` — trains a per-criterion correction on your gold marks. |
 
 ## Backends & validation
 
@@ -147,11 +148,15 @@ the boss; the total predictor is only a sanity check.*
 - **Keras backend:** `KerasCriterionScorer` reconstructs the notebook's exact
   feature pipeline and feeds the fit layer. Requires a saved `tfidf_vectorizer.pkl`
   (the original run saved only the scaler) — the notebook now has a cell to save it.
-- **Claude Haiku backend:** `ClaudeScorer`/`HaikuScorer` (`claude-haiku-4-5`)
-  scores a script and returns the mark via the fit layer. Calibrated in-context on
-  the gold data (`load_gold_exemplars`), schema-constrained to in-range scores,
-  with prompt caching on the rubric+exemplars. Needs `pip install anthropic`. See
-  `LLM_INTEGRATION.md`.
+- **Claude backend:** `SonnetScorer` (default `claude-sonnet-4-6`) / `HaikuScorer`
+  score a script and return the mark via the fit layer — schema-constrained to
+  in-range scores, prompt-cached rubric+exemplars, adaptive thinking where
+  supported. Needs `pip install anthropic`. See `LLM_INTEGRATION.md`.
+- **Training on your data:** `GoldCalibrator` learns a per-criterion correction
+  from your gold marks (you can't fine-tune Claude itself). Fold-validated on the
+  365 gold scripts it cut total-mark MAE 4.40 → 3.96 and Spelling exact-match
+  31.5% → 52.1%. Train via `examples/train_calibrator.py`; wrap any scorer with
+  `calibrator=`.
 
 ## Tests
 

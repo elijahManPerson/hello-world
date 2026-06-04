@@ -38,12 +38,19 @@ from .crossval import cross_validate, audit_fit, load_csv
 from .llm_backend import (
     LLMScorer,
     ClaudeScorer,
+    SonnetScorer,
     HaikuScorer,
     JsonlCache,
     EvidenceUnit,
     load_gold_exemplars,
     build_rubric_system_prompt,
     build_user_message,
+)
+from .calibration import (
+    GoldCalibrator,
+    foldwise_calibrate,
+    evaluate_marks,
+    build_pairs,
 )
 from .keras_backend import KerasCriterionScorer
 
@@ -55,8 +62,10 @@ __all__ = [
     "assess_criterion_fit", "FitReport", "SUSPICIOUS_RULES",
     "predict_criteria", "assess_scores",
     "cross_validate", "audit_fit", "load_csv",
-    "LLMScorer", "ClaudeScorer", "HaikuScorer", "JsonlCache", "EvidenceUnit",
-    "load_gold_exemplars", "build_rubric_system_prompt", "build_user_message",
+    "LLMScorer", "ClaudeScorer", "SonnetScorer", "HaikuScorer", "JsonlCache",
+    "EvidenceUnit", "load_gold_exemplars", "build_rubric_system_prompt",
+    "build_user_message",
+    "GoldCalibrator", "foldwise_calibrate", "evaluate_marks", "build_pairs",
     "KerasCriterionScorer",
 ]
 
