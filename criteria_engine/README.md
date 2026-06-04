@@ -141,9 +141,9 @@ the boss; the total predictor is only a sanity check.*
 ## Backends & validation
 
 - **Validation on real data:** `examples/validate_drive_csv.py <csv>` runs
-  `cross_validate` + `audit_fit` against a gold-scored CSV. Results on 21 real
-  scripts are in `VALIDATION.md` (text prior: total r ≈ 0.95; weak on Voc/Pun;
-  fit layer: 0 false hard-rule fires).
+  `cross_validate` + `audit_fit` against a gold-scored CSV. Results on 220 real
+  scripts are in `VALIDATION.md` (text prior: total r ≈ 0.91, within-1 ≥91% on
+  every criterion; fit layer: 0 hard-rule fires, 1 soft fire at its predicted rarity).
 - **Keras backend:** `KerasCriterionScorer` reconstructs the notebook's exact
   feature pipeline and feeds the fit layer. Requires a saved `tfidf_vectorizer.pkl`
   (the original run saved only the scaler) — the notebook now has a cell to save it.
