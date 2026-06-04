@@ -136,7 +136,7 @@ the boss; the total predictor is only a sanity check.*
 | `crossval.py` | `cross_validate`, `audit_fit`, CSV loading. |
 | `cli.py` | `python -m criteria_engine` entry point. |
 | `keras_backend.py` | Optional: score with the trained `model_*.keras` models (needs a saved TF-IDF vectorizer — see file header). |
-| `llm_backend.py` | PREP scaffold for LLM scoring (Mode 3); see `LLM_INTEGRATION.md`. |
+| `llm_backend.py` | Claude **Haiku** scorer (Mode 3) — produces the mark; see `LLM_INTEGRATION.md`. |
 
 ## Backends & validation
 
@@ -147,9 +147,11 @@ the boss; the total predictor is only a sanity check.*
 - **Keras backend:** `KerasCriterionScorer` reconstructs the notebook's exact
   feature pipeline and feeds the fit layer. Requires a saved `tfidf_vectorizer.pkl`
   (the original run saved only the scaler) — the notebook now has a cell to save it.
-- **LLM backend (prep):** `LLMScorer` + `JsonlCache` match the existing
-  `aes_precision_cache.jsonl` shape; implement one method (`_call_model`) to go
-  live. See `LLM_INTEGRATION.md`.
+- **Claude Haiku backend:** `ClaudeScorer`/`HaikuScorer` (`claude-haiku-4-5`)
+  scores a script and returns the mark via the fit layer. Calibrated in-context on
+  the gold data (`load_gold_exemplars`), schema-constrained to in-range scores,
+  with prompt caching on the rubric+exemplars. Needs `pip install anthropic`. See
+  `LLM_INTEGRATION.md`.
 
 ## Tests
 

@@ -1,37 +1,102 @@
-"""PREP scaffold for the LLM scoring backend (production path, Mode 3).
+"""Claude (Haiku) scoring backend — produces a mark for a script.
 
-This lays the groundwork to let an LLM read a script, return per-criterion
-scores *and* evidence, and feed both into the fit layer via
-:func:`criteria_engine.predict_criteria`. It is intentionally a scaffold: the
-actual model call is left as one abstract method so it can be wired to whatever
-client you use (the existing pipeline uses ``gpt-4o``).
+The production path (Mode 3): Claude Haiku reads a script and returns
+per-criterion scores + evidence, which the engine sums to a tentative total
+(the mark) and runs through the fit layer. "Trained on the data" here means
+**in-context calibration**: a sample of the human-marked gold scripts is
+embedded in a cached system prompt as exemplars, so Haiku scores consistently
+with the gold marks.
 
-Designed to match the existing ``aes_precision_cache.jsonl`` shape:
+Why Haiku, and how this is wired (per the Claude API skill):
+  * model: ``claude-haiku-4-5`` (the user asked for Haiku).
+  * structured outputs: each criterion is constrained to its exact integer
+    range via a json_schema ``enum``, so the model cannot return an out-of-range
+    or non-integer score.
+  * prompt caching: the rubric + exemplars are a large, stable prefix carried in
+    ``system`` with a ``cache_control`` breakpoint; the per-script text is the
+    volatile suffix. Once exemplars are loaded the prefix exceeds the cache
+    minimum, so repeated scoring reads the cache (~0.1x input cost).
+  * thinking is left OFF — Haiku 4.5 does not take the adaptive-thinking /
+    effort parameters that the Opus/Sonnet 4.6+ models do.
+
+The Anthropic SDK is imported lazily, so the core engine stays dependency-free.
+Install with ``pip install anthropic`` to use this backend.
+
+Cache shape matches the handover's ``aes_precision_cache.jsonl``:
   * cache key  : ``"{version}|{model}|{sha1(text)}"``
   * evidence   : units of ``{label, start, end, text, confidence}``
-
-Nothing here imports an API SDK at module load, so the core engine stays
-dependency-free.
 """
 
 from __future__ import annotations
 
 import abc
+import csv
 import hashlib
 import json
 import os
 from dataclasses import dataclass, asdict
 
-from .ranges import CRITERIA, RANGE_LABELS, RANGES, clamp
-from .priors import BAND_PROFILE
+from .ranges import CRITERIA, FULL_NAMES, RANGES, clamp
+from .priors import BAND_PROFILE, total_band
 from .engine import predict_criteria
 
 CACHE_VERSION = "criterion_scores_v1"
+DEFAULT_MODEL = "claude-haiku-4-5"
 
+
+# --- Structured-output schema --------------------------------------------
+
+def _response_schema() -> dict:
+    """json_schema that forces in-range integer scores plus evidence."""
+    score_props = {
+        c: {"type": "integer", "enum": list(range(RANGES[c] + 1))}
+        for c in CRITERIA
+    }
+    evidence_props = {c: {"type": "string"} for c in CRITERIA}
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["scores", "evidence", "units"],
+        "properties": {
+            "scores": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": list(CRITERIA),
+                "properties": score_props,
+            },
+            "evidence": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": list(CRITERIA),
+                "properties": evidence_props,
+            },
+            "units": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["label", "start", "end", "text", "confidence"],
+                    "properties": {
+                        "label": {"type": "string"},
+                        "start": {"type": "integer"},
+                        "end": {"type": "integer"},
+                        "text": {"type": "string"},
+                        "confidence": {"type": "number"},
+                    },
+                },
+            },
+        },
+    }
+
+
+RESPONSE_SCHEMA = _response_schema()
+
+
+# --- Evidence / prediction containers ------------------------------------
 
 @dataclass
 class EvidenceUnit:
-    """A span of evidence, mirroring the precision-cache unit schema."""
+    """A span of evidence, mirroring the handover precision-cache unit schema."""
     label: str
     start: int
     end: int
@@ -53,10 +118,12 @@ def text_hash(text: str) -> str:
     return hashlib.sha1((text or "").encode("utf-8")).hexdigest()
 
 
-class JsonlCache:
-    """Append-only JSONL cache keyed like the existing precision cache."""
+# --- JSONL cache (handover-compatible key shape) -------------------------
 
-    def __init__(self, path: str, model: str, version: str = CACHE_VERSION):
+class JsonlCache:
+    """Append-only JSONL cache keyed like the handover precision cache."""
+
+    def __init__(self, path: str, model: str = DEFAULT_MODEL, version: str = CACHE_VERSION):
         self.path = path
         self.model = model
         self.version = version
@@ -82,48 +149,110 @@ class JsonlCache:
             fh.write(json.dumps(rec) + "\n")
 
 
-def build_rubric_prompt(text: str, year_level: int | None = None) -> str:
-    """Starter prompt: ask for each criterion IN ITS RANGE, plus evidence.
+# --- Exemplars: "training on the data" by in-context calibration ----------
 
-    Refine against the official NAPLAN marking guide before production use.
-    The band anchors below are the engine's BAND_PROFILE, included so the model
-    is nudged toward internally consistent profiles.
+def _truncate(text: str, words: int = 130) -> str:
+    parts = (text or "").split()
+    return " ".join(parts[:words]) + (" ..." if len(parts) > words else "")
+
+
+def load_gold_exemplars(
+    csv_path: str, per_band: int = 1, min_word_count: int = 30
+) -> list[dict]:
+    """Pick a spread of human-marked exemplars from the gold CSV.
+
+    Reads the handover's ``gold_clean_365_with_year_proxy.csv`` (columns
+    ``Research ID, AU, TS, ID, CS/PD, Voc, Coh, Pa, SS, Pun, Spell, Total,
+    WordCount, Raw text``) and returns up to ``per_band`` prose exemplars per
+    total band, so Haiku sees the full mark range. Non-prose / very short
+    responses are skipped.
     """
-    ranges = "\n".join(f"  - {c} ({RANGE_LABELS[c]})" for c in CRITERIA)
+    by_band: dict[str, list[dict]] = {}
+    with open(csv_path, newline="", encoding="utf-8-sig") as fh:
+        for row in csv.DictReader(fh):
+            try:
+                wc = int(float(row.get("WordCount", 0) or 0))
+                total = int(float(row.get("Total", 0) or 0))
+                profile = {c: int(float(row[c])) for c in CRITERIA}
+            except (TypeError, ValueError, KeyError):
+                continue
+            text = (row.get("Raw text") or "").strip()
+            if wc < min_word_count or not text:
+                continue
+            band = total_band(total)
+            bucket = by_band.setdefault(band, [])
+            if len(bucket) < per_band:
+                bucket.append({
+                    "id": row.get("Research ID", ""),
+                    "total": total,
+                    "scores": profile,
+                    "text": text,
+                })
+    out: list[dict] = []
+    for band in BAND_PROFILE:  # canonical band order, low to high
+        out.extend(by_band.get(band, []))
+    return out
+
+
+# --- Prompt construction (system = stable/cacheable, user = volatile) -----
+
+def build_rubric_system_prompt(exemplars: list[dict] | None = None) -> str:
+    """Stable, cacheable instructions: ranges, band anchors, and exemplars."""
+    ranges = "\n".join(f"  - {c} ({FULL_NAMES[c]}): 0-{RANGES[c]}" for c in CRITERIA)
     anchors = "\n".join(
         f"  total {band}: " + ", ".join(f"{c}={BAND_PROFILE[band][c]}" for c in CRITERIA)
         for band in BAND_PROFILE
     )
-    yl = f"\nYear level: {year_level}" if year_level is not None else ""
+    parts = [
+        "You are an expert NAPLAN-style narrative writing marker. Mark the "
+        "student script against the rubric. Score EACH criterion as an integer "
+        "STRICTLY within its range, give a one-line rationale per criterion "
+        "grounded in the text, and list any short evidence spans.\n",
+        f"Criteria and ranges:\n{ranges}\n",
+        "Typical (not mandatory) profiles by total band, for internal "
+        f"consistency:\n{anchors}\n",
+        "The total mark is the sum of the ten criterion scores (0-47); do not "
+        "report a separate total — it is computed from your criterion scores.\n",
+    ]
+    if exemplars:
+        ex_lines = ["Human-marked exemplars (calibrate your marking to these):"]
+        for ex in exemplars:
+            sc = ", ".join(f"{c}={ex['scores'][c]}" for c in CRITERIA)
+            ex_lines.append(
+                f"\n[Exemplar {ex['id']} | total {ex['total']}] {sc}\n"
+                f"Script: \"{_truncate(ex['text'])}\""
+            )
+        parts.append("\n".join(ex_lines) + "\n")
+    return "\n".join(parts)
+
+
+def build_user_message(text: str, year_level: int | None = None) -> str:
+    yl = f"Year level: {year_level}\n" if year_level is not None else ""
     return (
-        "You are marking a narrative writing script against the NAPLAN-style "
-        "rubric. Score EACH criterion strictly within its range, and justify "
-        "each score with a short rationale grounded in the text.\n\n"
-        f"Criteria and ranges:\n{ranges}\n\n"
-        f"Typical (not mandatory) profiles by total band, for consistency:\n{anchors}\n"
-        f"{yl}\n\n"
-        "Return JSON: {\"scores\": {criterion: int, ...}, "
-        "\"evidence\": {criterion: str, ...}, "
-        "\"units\": [{\"label\": str, \"start\": int, \"end\": int, "
-        "\"text\": str, \"confidence\": float}]}\n\n"
-        "Script:\n\"\"\"\n" + (text or "") + "\n\"\"\"\n"
+        f"{yl}Mark this script. Return JSON only.\n\nScript:\n\"\"\"\n"
+        + (text or "") + "\n\"\"\"\n"
     )
 
 
-class LLMScorer(abc.ABC):
-    """Abstract scorer. Implement :meth:`_call_model` for your client."""
+# --- Scorers --------------------------------------------------------------
 
-    def __init__(self, model: str, cache: JsonlCache | None = None):
+class LLMScorer(abc.ABC):
+    """Abstract scorer; implement :meth:`_call_model` for a provider."""
+
+    def __init__(
+        self,
+        model: str = DEFAULT_MODEL,
+        cache: JsonlCache | None = None,
+        exemplars: list[dict] | None = None,
+    ):
         self.model = model
         self.cache = cache
+        self.exemplars = exemplars
+        self._system = build_rubric_system_prompt(exemplars)
 
     @abc.abstractmethod
-    def _call_model(self, prompt: str) -> dict:
-        """Call the LLM and return the parsed JSON dict (scores/evidence/units).
-
-        Wire this to your client (the existing pipeline uses gpt-4o). It should
-        return a dict shaped like the JSON described in ``build_rubric_prompt``.
-        """
+    def _call_model(self, system: str, user: str) -> dict:
+        """Return the parsed JSON dict (scores/evidence/units)."""
         raise NotImplementedError
 
     def score(self, text: str, year_level: int | None = None) -> CriterionPrediction:
@@ -132,7 +261,7 @@ class LLMScorer(abc.ABC):
             if cached is not None and "payload" in cached:
                 return _to_prediction(cached["payload"])
 
-        raw = self._call_model(build_rubric_prompt(text, year_level))
+        raw = self._call_model(self._system, build_user_message(text, year_level))
         pred = _to_prediction(raw)
 
         if self.cache is not None:
@@ -144,7 +273,8 @@ class LLMScorer(abc.ABC):
         return pred
 
     def predict(self, text: str, year_level: int | None = None, **kwargs) -> dict:
-        """Score with the LLM, then run the fit layer (the full Mode-3 path)."""
+        """Score with the LLM, then run the fit layer; returns the full result
+        including ``tentative_total`` (the mark)."""
         pred = self.score(text, year_level=year_level)
         return predict_criteria(
             text=text,
@@ -153,6 +283,65 @@ class LLMScorer(abc.ABC):
             evidence=pred.evidence,
             **kwargs,
         )
+
+
+class ClaudeScorer(LLMScorer):
+    """Concrete scorer calling Claude (defaults to Haiku 4.5).
+
+    Example
+    -------
+        from criteria_engine.llm_backend import ClaudeScorer, JsonlCache, load_gold_exemplars
+
+        exemplars = load_gold_exemplars("gold_clean_365_with_year_proxy.csv")
+        scorer = ClaudeScorer(
+            exemplars=exemplars,
+            cache=JsonlCache("aes_haiku_cache.jsonl"),
+        )
+        result = scorer.predict(my_script)   # result["tentative_total"] is the mark
+    """
+
+    def __init__(
+        self,
+        *,
+        model: str = DEFAULT_MODEL,
+        cache: JsonlCache | None = None,
+        exemplars: list[dict] | None = None,
+        client=None,
+        max_tokens: int = 4096,
+    ):
+        super().__init__(model=model, cache=cache, exemplars=exemplars)
+        self._client = client
+        self.max_tokens = max_tokens
+        if cache is not None:
+            cache.model = model  # keep cache key model in sync
+
+    def _get_client(self):
+        if self._client is None:
+            import anthropic  # lazy
+            self._client = anthropic.Anthropic()
+        return self._client
+
+    def _call_model(self, system: str, user: str) -> dict:
+        client = self._get_client()
+        resp = client.messages.create(
+            model=self.model,
+            max_tokens=self.max_tokens,
+            # Stable rubric + exemplars cached; the script (in `user`) is volatile.
+            system=[{
+                "type": "text",
+                "text": system,
+                "cache_control": {"type": "ephemeral"},
+            }],
+            messages=[{"role": "user", "content": user}],
+            # Structured outputs: schema-valid, in-range integer scores.
+            output_config={"format": {"type": "json_schema", "schema": RESPONSE_SCHEMA}},
+        )
+        text = next(b.text for b in resp.content if b.type == "text")
+        return json.loads(text)
+
+
+# Convenience alias for the requested configuration.
+HaikuScorer = ClaudeScorer
 
 
 def _to_prediction(raw: dict) -> CriterionPrediction:

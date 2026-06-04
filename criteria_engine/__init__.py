@@ -37,9 +37,13 @@ from .engine import predict_criteria, assess_scores
 from .crossval import cross_validate, audit_fit, load_csv
 from .llm_backend import (
     LLMScorer,
+    ClaudeScorer,
+    HaikuScorer,
     JsonlCache,
     EvidenceUnit,
-    build_rubric_prompt,
+    load_gold_exemplars,
+    build_rubric_system_prompt,
+    build_user_message,
 )
 from .keras_backend import KerasCriterionScorer
 
@@ -51,7 +55,8 @@ __all__ = [
     "assess_criterion_fit", "FitReport", "SUSPICIOUS_RULES",
     "predict_criteria", "assess_scores",
     "cross_validate", "audit_fit", "load_csv",
-    "LLMScorer", "JsonlCache", "EvidenceUnit", "build_rubric_prompt",
+    "LLMScorer", "ClaudeScorer", "HaikuScorer", "JsonlCache", "EvidenceUnit",
+    "load_gold_exemplars", "build_rubric_system_prompt", "build_user_message",
     "KerasCriterionScorer",
 ]
 
