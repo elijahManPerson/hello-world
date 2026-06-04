@@ -378,6 +378,14 @@ class HaikuScorer(ClaudeScorer):
         super().__init__(**kwargs)
 
 
+class OpusScorer(ClaudeScorer):
+    """ClaudeScorer pinned to Opus 4.8 (most capable; adaptive thinking on)."""
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("model", "claude-opus-4-8")
+        super().__init__(**kwargs)
+
+
 def _to_prediction(raw: dict) -> CriterionPrediction:
     scores = {c: clamp(c, float(raw.get("scores", {}).get(c, 0))) for c in CRITERIA}
     evidence = {c: str(raw.get("evidence", {}).get(c, "")) for c in CRITERIA}
