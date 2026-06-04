@@ -322,7 +322,7 @@ class ClaudeScorer(LLMScorer):
         exemplars: list[dict] | None = None,
         calibrator=None,
         client=None,
-        max_tokens: int = 4096,
+        max_tokens: int = 8192,
         use_thinking: bool | None = None,
     ):
         super().__init__(model=model, cache=cache, exemplars=exemplars, calibrator=calibrator)
@@ -342,24 +342,41 @@ class ClaudeScorer(LLMScorer):
 
     def _call_model(self, system: str, user: str) -> dict:
         client = self._get_client()
-        kwargs = dict(
-            model=self.model,
-            max_tokens=self.max_tokens,
-            # Stable rubric + exemplars cached; the script (in `user`) is volatile.
-            system=[{
-                "type": "text",
-                "text": system,
-                "cache_control": {"type": "ephemeral"},
-            }],
-            messages=[{"role": "user", "content": user}],
-            # Structured outputs: schema-valid, in-range integer scores.
-            output_config={"format": {"type": "json_schema", "schema": RESPONSE_SCHEMA}},
-        )
-        if self.use_thinking:
-            kwargs["thinking"] = {"type": "adaptive"}
-        resp = client.messages.create(**kwargs)
-        text = next(b.text for b in resp.content if b.type == "text")
-        return json.loads(text)
+
+        def _request(max_tokens: int, thinking: bool):
+            kwargs = dict(
+                model=self.model,
+                max_tokens=max_tokens,
+                # Stable rubric + exemplars cached; the script is the volatile suffix.
+                system=[{
+                    "type": "text",
+                    "text": system,
+                    "cache_control": {"type": "ephemeral"},
+                }],
+                messages=[{"role": "user", "content": user}],
+                # Structured outputs: schema-valid, in-range integer scores.
+                output_config={"format": {"type": "json_schema", "schema": RESPONSE_SCHEMA}},
+            )
+            if thinking:
+                kwargs["thinking"] = {"type": "adaptive"}
+            return client.messages.create(**kwargs)
+
+        resp = _request(self.max_tokens, self.use_thinking)
+        texts = [b.text for b in resp.content if b.type == "text"]
+
+        # Adaptive thinking can consume the whole budget before any JSON is
+        # emitted (stop_reason == "max_tokens" with only thinking blocks). Retry
+        # once with a bigger budget and thinking off so the mark always lands.
+        if not texts and resp.stop_reason == "max_tokens":
+            resp = _request(max(self.max_tokens * 2, 8192), thinking=False)
+            texts = [b.text for b in resp.content if b.type == "text"]
+
+        if not texts:
+            raise RuntimeError(
+                f"no JSON in Claude response (stop_reason={resp.stop_reason}); "
+                "raise max_tokens or check for a refusal."
+            )
+        return json.loads("".join(texts))
 
 
 class SonnetScorer(ClaudeScorer):
